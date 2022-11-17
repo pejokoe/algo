@@ -1,151 +1,129 @@
-public class Vector
-{
+public class Vector {
 	private Object data[];
 	private int count;
-	
-	public Vector(int capacity)
-	{
+
+	public Vector(int capacity) {
 		data = new Object[capacity];
 		count = 0;
 	}
 
-	public int size()
-	{
+	public int size() {
 		return count;
 	}
- 
-	public boolean isEmpty()
-	{
+
+	public boolean isEmpty() {
 		return size() == 0;
 	}
 
-	public Object get(int index)
-	{
-		if (index > count-1) {
+	public Object get(int index) {
+		if (index > count - 1) {
 			System.out.println("Index out of bounds!");
 			return -1;
 		}
 		return data[index];
 	}
 
-	public void set(int index, Object obj)
-	{
+	public void set(int index, Object obj) {
 		data[index] = obj;
 	}
 
-	public boolean contains(Object obj)
-	{
-		for(int i=0;i<count;i++)
-		{
-			if(data[i] == obj) return true;
+	public boolean contains(Object obj) {
+		for (int i = 0; i < count; i++) {
+			if (data[i] == obj)
+				return true;
 		}
 		return false;
 	}
-	
-	public void addFirst(Object item)
-	{
-		Object[] tmp = new Object[count+1];
-		for (int i = count; i > 0; i--){
-			tmp[i] = data[i-1];
+
+	public void addFirst(Object item) {
+		Object[] tmp = new Object[count + 1];
+		for (int i = count; i > 0; i--) {
+			tmp[i] = data[i - 1];
 		}
 		tmp[0] = item;
 		count++;
 		data = tmp;
 	}
 
-	public void addLast(Object o)
-	{
+	public void addLast(Object o) {
 		if (!(data.length > count + 1)) {
 			this.extendCapacity();
 		}
 		data[count] = o;
 		count++;
 	}
-	
-	/*
-	public boolean binarySearch(Object key)
-	{
-	int start = 0;
-	int end = count - 1;
-	while(start <= end)
-	{
-		int middle = (start + end + 1) / 2;
-		if(key < data[middle]) end = middle -1;
-		else if(key > data[middle]) start = middle + 1;
-		else return true;
-	}
-	return false;
-	}
-	*/
 
-	public Object getFirst()
-	{
+	/*
+	 * public boolean binarySearch(Object key) { int start = 0; int end = count - 1;
+	 * while(start <= end) { int middle = (start + end + 1) / 2; if(key <
+	 * data[middle]) end = middle -1; else if(key > data[middle]) start = middle +
+	 * 1; else return true; } return false; }
+	 */
+
+	public Object getFirst() {
 		// returns the first element
 		return data[0];
 	}
 
-	public Object getLast()
-	{
-		//returns the last element
-		return data[this.size()]; 
+	public Object getLast() {
+		// returns the last element
+		return data[this.size()];
 	}
 
-	public void removeLast()
-	{
+	public void removeLast() {
 		// removes the last element
 		if (this.count > 0) {
 			count--;
 		} else {
 			System.out.println("Empty vector, removal not possible!");
 		}
-		
-	} 
 
-	public void removeFirst()
-	{
+	}
+
+	public void removeFirst() {
 		// removes the first element
 		if (this.count > 0) {
-			Object[] tmp = new Object[count-1];
-			for (int i = 0; i < count-1; i++) {
-				tmp[i] = data[i+1];
+			Object[] tmp = new Object[count - 1];
+			for (int i = 0; i < count - 1; i++) {
+				tmp[i] = data[i + 1];
 			}
 			data = tmp;
 		}
 	}
-	
+
 	public String toString() {
 		// returns a string representation of the contents of "this"
 		String string = new String("[ ");
-		for (int i = 0; i < this.count ; i++) {
+		for (int i = 0; i < this.count; i++) {
 			string += data[i];
 			string += " ";
 		}
 		string += "]";
 		return string;
 	}
-	
+
 	public void reverse() {
 		// reverses the order of the elements in "this"
 		Object tmp = 0;
-		for (int i = 0; i < count/2; i++) {
+		for (int i = 0; i < count / 2; i++) {
 			tmp = data[i];
-			data[i] = data[count-1-i];
-			data[count-1-i] = tmp;
+			data[i] = data[count - 1 - i];
+			data[count - 1 - i] = tmp;
 		}
 	}
-	
+
 	public Vector repeat() {
 		// creates a new vector that contains every element of "this" twice
-		Vector to_return = new Vector(count*2);
+		Vector to_return = new Vector(count * 2);
 		for (int i = 0; i < count; i++) {
 			to_return.addLast(data[i]);
 			to_return.addLast(data[i]);
 		}
 		return to_return;
 	}
-	
+
 	public Vector interleave(Vector v2) {
-		Vector to_return = new Vector(count*2);
+		Vector to_return = new Vector(count * 2);
 		for (int i = 0; i < count; i++) {
 			to_return.addLast(data[i]);
 			to_return.addLast(v2.get(i));
@@ -154,17 +132,17 @@ public class Vector
 	}
 
 	private void extendCapacity() {
-		Object[] data2 = new Object[count*2];
+		Object[] data2 = new Object[count * 2];
 		for (int i = 0; i < count; i++) {
 			data2[i] = data[i];
 		}
 		data = data2;
 	}
-	
+
 	public static void main(String[] args) {
 		// testing the vector class
 		Vector vector = new Vector(100);
-		
+
 		// fill vector with numbers 1 to 100
 		for (int i = 1; i < 10; i++) {
 			vector.addLast(i);
@@ -179,7 +157,7 @@ public class Vector
 		System.out.println(vector);
 		Vector vector2 = vector.repeat();
 		System.out.println(vector2);
-		int iteration = vector2.size()/2;
+		int iteration = vector2.size() / 2;
 		for (int i = 0; i < iteration; i++) {
 			vector2.removeLast();
 		}
@@ -195,7 +173,7 @@ public class Vector
 		v4.addLast(1);
 		v4.addLast(1);
 		System.out.println(v4);
-		
+
 	}
-	
+
 }
