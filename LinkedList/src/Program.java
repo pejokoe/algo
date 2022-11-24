@@ -16,7 +16,7 @@ public class Program {
 		System.out.println(my_llist);
 		System.out.println(my_llist.contains(6));
 		my_llist.reverse();
-		System.out.println(my_llist);
+		System.out.println("inversed :" + my_llist);
 		LinkedList twice = my_llist.repeat();
 		System.out.println(twice);
 		LinkedList other = new LinkedList();

@@ -146,13 +146,15 @@ public class LinkedList {
 	
 	// reverse order of all elements of linked list
 	public void reverse() {
-		LinkedList tmp = new LinkedList();
 		ListElement d = head;
-		while(d != null) {
-			tmp.addFirst(d.first());
-			d = d.rest();
+		ListElement head2 = null;
+		while(head != null) {
+			d = head;
+			head = head.rest();
+			d.setRest(head2);
+			head2 = d;
 		}
-		this.head = tmp.head;
+		head = head2;
 	}
 	
 	// creates a new linked list that contains every element of "this" twice
