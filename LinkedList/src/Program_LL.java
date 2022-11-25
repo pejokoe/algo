@@ -28,5 +28,9 @@ public class Program_LL {
 		inter.removeFirst();
 		inter.fropple();
 		System.out.println(inter);
+		my_llist.append(inter);
+		System.out.println(my_llist);
+		System.out.println(inter);
+		
 	}
 }

@@ -203,4 +203,12 @@ public class LinkedList {
 			e.rest().setRest(d);
 		}
 	}
+	
+	public void append(LinkedList list2) {
+		ListElement d = list2.getHead();
+		while(d != null) {
+			this.addLast(d.first());
+			d = d.rest();
+		}
+	}
 }
