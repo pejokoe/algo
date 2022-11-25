@@ -1,105 +1,136 @@
-public class DoubleLinkedList 
-{
-        private class DoubleLinkedListElement
-        {
-                private Object data;
-                private DoubleLinkedListElement nextElement;
-                private DoubleLinkedListElement previousElement;
+public class DoubleLinkedList {
+	Â Â Â Â 
+	private class DoubleLinkedListElementÂ Â Â Â 
+	{
+Â  Â  Â  Â  Â  Â  Â  Â 
+		private Object data;Â Â Â Â Â Â Â Â 
+		private DoubleLinkedListElement nextElement;Â Â Â Â Â Â Â Â 
+		private DoubleLinkedListElement previousElement;
 
-                public DoubleLinkedListElement(Object v, 
+		Â Â Â Â Â Â Â Â 
+
+		public DoubleLinkedListElement(Object v, 
 DoubleLinkedListElement next, DoubleLinkedListElement previous)
-                {
-                        data = v;
-                        nextElement = next;
-                        previousElement = previous;
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  data = v;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  nextElement = next;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  previousElement = previous;
 
-                        if(nextElement != null) nextElement.previousElement = this;
-                        if(previousElement != null) previousElement.nextElement = this;
-                }
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  if(nextElement != null) nextElement.previousElement = this;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  if(previousElement != null) previousElement.nextElement = this;
+Â  Â  Â  Â  Â  Â  Â  Â  }
 
-                public DoubleLinkedListElement(Object v)
-                {
-                        this(v,null,null);
-                }
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-                public DoubleLinkedListElement previous()
-                {
-                        return previousElement;
-                }
+		public DoubleLinkedListElement(Object v)
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  this(v,null,null);
+Â  Â  Â  Â  Â  Â  Â  Â  }
 
-                public Object value()
-                {
-                        return data;
-                        }
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-                public DoubleLinkedListElement next()
-                {
-                        return nextElement;
-                }
+		public DoubleLinkedListElement previous()
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  return previousElement;
+Â  Â  Â  Â  Â  Â  Â  Â  }
 
-                public void setNext(DoubleLinkedListElement value)
-                {
-                        nextElement = value;
-                }
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-                public void setPrevious(DoubleLinkedListElement value)
-                {
-                        previousElement = value;
-                }
-        }
+		public Object value()
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  return data;
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  }
 
-        private int count;
-        private DoubleLinkedListElement head;
-        private DoubleLinkedListElement tail;
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-        public DoubleLinkedList()
-        {
-                head = null;
-                tail = null;
-                count = 0;
-        }
+		public DoubleLinkedListElement next()
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  return nextElement;
+Â  Â  Â  Â  Â  Â  Â  Â  }
 
-        public Object getFirst()
-        {
-                return head.value();
-        }
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-        public Object getLast()
-        {
-                return tail.value();
-        }
+		public void setNext(DoubleLinkedListElement value)
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  nextElement = value;
+Â  Â  Â  Â  Â  Â  Â  Â  }
 
-        public int size()
-        {
-                return count;
-        }
+Â  Â  Â  Â  Â  Â  Â  Â 
 
-        public void AddFirst(Object value)
-        {
-                head = new DoubleLinkedListElement(value,head,null);
-                if(tail == null) tail = head;
-                count++;
-        }
+		public void setPrevious(DoubleLinkedListElement value)
+Â  Â  Â  Â  Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  previousElement = value;
+Â  Â  Â  Â  Â  Â  Â  Â  }
+Â  Â  Â  Â  }
 
-        public void AddLast(Object value)
-        {
-                tail = new DoubleLinkedListElement(value,null,tail);
-                if(head == null) head = tail;
-                count++;
-        }
+		Â Â Â Â 
 
-        public String toString()
-        {
+		private int count;Â Â Â Â 
+		private DoubleLinkedListElement head;Â Â Â Â 
+		private DoubleLinkedListElement tail;
+
+		Â Â Â Â 
+
+		public DoubleLinkedList()
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  head = null;
+Â  Â  Â  Â  Â  Â  Â  Â  tail = null;
+Â  Â  Â  Â  Â  Â  Â  Â  count = 0;
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public Object getFirst()
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  return head.value();
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public Object getLast()
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  return tail.value();
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public int size()
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  return count;
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public void AddFirst(Object value)
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  head = new DoubleLinkedListElement(value,head,null);
+Â  Â  Â  Â  Â  Â  Â  Â  if(tail == null) tail = head;
+Â  Â  Â  Â  Â  Â  Â  Â  count++;
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public void AddLast(Object value)
+Â  Â  Â  Â  {
+Â  Â  Â  Â  Â  Â  Â  Â  tail = new DoubleLinkedListElement(value,null,tail);
+Â  Â  Â  Â  Â  Â  Â  Â  if(head == null) head = tail;
+Â  Â  Â  Â  Â  Â  Â  Â  count++;
+Â  Â  Â  Â  }
+
+Â  Â  Â  Â 
+
+		public String toString()
+Â  Â  Â  Â  {
                 String s = "(";
-                DoubleLinkedListElement d = head;
-                while(d != null)
-                {
+Â  Â  Â  Â  Â  Â  Â  Â  DoubleLinkedListElement d = head;
+Â  Â  Â  Â  Â  Â  Â  Â  while(d != null)
+Â  Â  Â  Â  Â  Â  Â  Â  {
                         s += d.value().toString();
                         s += " ";
-                        d = d.next();
-                }
+Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  d = d.next();
+Â  Â  Â  Â  Â  Â  Â  Â  }
                 s += ")";
                 return s;
 
-        }
+Â  Â  Â  Â  }
 }

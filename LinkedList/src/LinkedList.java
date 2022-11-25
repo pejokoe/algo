@@ -1,5 +1,5 @@
 public class LinkedList {
-	
+
 	private class ListElement {
 		private Object el1;
 		private ListElement el2;
@@ -29,7 +29,7 @@ public class LinkedList {
 			el2 = value;
 		}
 	}
-	
+
 	private ListElement head;
 
 	public LinkedList() {
@@ -52,7 +52,7 @@ public class LinkedList {
 		}
 		return d.first();
 	}
-	
+
 	public String toString() {
 		String s = "(";
 		ListElement d = head;
@@ -64,18 +64,18 @@ public class LinkedList {
 		s += ")";
 		return s;
 	}
-	
+
 	// return size of linked list
 	public int size() {
 		int size = 0;
-		ListElement d = head;	
-		while(d != null) {
+		ListElement d = head;
+		while (d != null) {
 			size += 1;
 			d = d.rest();
 		}
 		return size;
 	}
-	
+
 	// change object at position n to o
 	public void set(int n, Object o) {
 		ListElement d = head;
@@ -88,12 +88,12 @@ public class LinkedList {
 	// return last object
 	public Object getLast() {
 		ListElement d = head;
-		while(d.rest() != null) {
+		while (d.rest() != null) {
 			d = d.rest();
 		}
 		return d.first();
 	}
-	
+
 	// insert object o at last position
 	public void addLast(Object o) {
 		ListElement d = head;
@@ -106,13 +106,13 @@ public class LinkedList {
 			d.setRest(new ListElement(o, d.rest()));
 		}
 	}
-	
+
 	// return position of object o, -1 if not found
 	public int search(Object o) {
 		ListElement d = head;
 		int position = 0;
-		while(d != null) {
-			if(d.first() == o) {
+		while (d != null) {
+			if (d.first() == o) {
 				return position;
 			}
 			position += 1;
@@ -120,21 +120,21 @@ public class LinkedList {
 		}
 		return -1;
 	}
-	
+
 	// remove first element
 	public void removeFirst() {
 		head = head.rest();
 	}
-	
+
 	// remove last element
 	public void removeLast() {
 		ListElement d = head;
-		while(d.rest().rest() != null) {
+		while (d.rest().rest() != null) {
 			d = d.rest();
 		}
 		d.setRest(null);
 	}
-	
+
 	// check if linked list contains object o
 	public boolean contains(Object o) {
 		boolean contains = false;
@@ -143,12 +143,12 @@ public class LinkedList {
 		}
 		return contains;
 	}
-	
+
 	// reverse order of all elements of linked list
 	public void reverse() {
 		ListElement d = head;
 		ListElement head2 = null;
-		while(head != null) {
+		while (head != null) {
 			d = head;
 			head = head.rest();
 			d.setRest(head2);
@@ -156,19 +156,19 @@ public class LinkedList {
 		}
 		head = head2;
 	}
-	
+
 	// creates a new linked list that contains every element of "this" twice
 	public LinkedList repeat() {
 		LinkedList tmp = new LinkedList();
 		ListElement d = head;
-		while(d != null) {
+		while (d != null) {
 			tmp.addLast(d.first());
 			tmp.addLast(d.first());
 			d = d.rest();
 		}
 		return tmp;
 	}
-	
+
 	// interleave two linked lists (only works if lists have same length)
 	public LinkedList interleave(LinkedList toInterleave) {
 		LinkedList tmp = new LinkedList();
@@ -182,8 +182,25 @@ public class LinkedList {
 		}
 		return tmp;
 	}
-	
+
 	public ListElement getHead() {
 		return this.head;
+	}
+
+	public void fropple() {
+		ListElement d = head;
+		ListElement e = null;
+		if (head != null && head.rest() != null) {
+			head = d.rest();
+			d.setRest(head.rest());
+			head.setRest(d);
+		}
+		while (d.rest()!= null && d.rest().rest() != null) {
+			e = d;
+			d = d.rest();
+			e.setRest(d.rest());
+			d.setRest(d.rest().rest());
+			e.rest().setRest(d);
+		}
 	}
 }

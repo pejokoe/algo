@@ -1,4 +1,4 @@
-public class Program {
+public class Program_LL {
 	public static void main(String[] args) {
 		LinkedList my_llist = new LinkedList();
 		for (int i = 10; i > 0; i--) {
@@ -24,6 +24,9 @@ public class Program {
 			other.addFirst(5);
 		}
 		LinkedList inter = my_llist.interleave(other);
+		System.out.println(inter);
+		inter.removeFirst();
+		inter.fropple();
 		System.out.println(inter);
 	}
 }
