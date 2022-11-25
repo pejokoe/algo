@@ -76,7 +76,7 @@ public class DoubleLinkedList {
 	}
 
 	public String toString() {
-		String s = "(";
+		String s = "( ";
 		DoubleLinkedListElement d = head;
 		while (d != null) {
 			s += d.value().toString();
@@ -85,5 +85,17 @@ public class DoubleLinkedList {
 		}
 		s += ")";
 		return s;
+	}
+	
+	public void printReverse() {
+		String s = "( ";
+		DoubleLinkedListElement e = tail;
+		while(e != null) {
+			s += e.value().toString();
+			s += " ";
+			e = e.previous();
+		}
+		s += ")";
+		System.out.println(s);
 	}
 }
