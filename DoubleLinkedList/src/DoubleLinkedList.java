@@ -98,4 +98,41 @@ public class DoubleLinkedList {
 		s += ")";
 		System.out.println(s);
 	}
+	
+	public void removeLast() {
+		DoubleLinkedListElement e = tail;
+		tail = tail.previous();
+		if (tail == null) {
+			head = null;
+		} else {
+			tail.setNext(null);
+		}
+		count--;
+	}
+	
+	public void reverse() {
+		DoubleLinkedListElement d = head;
+		DoubleLinkedListElement e = tail;
+		DoubleLinkedListElement head2 = null;
+		DoubleLinkedListElement tail2 = null;
+		
+		while (head != null) {
+			d = head;
+			head = head.next();
+			if (head != null) {
+				head.setPrevious(null);
+			} else {
+				tail = null;
+			}
+			d.setNext(head2);
+			if (tail2 != null) {
+				head2.setPrevious(d);
+			} else {
+				tail2 = d;
+			}
+			head2 = d;
+		}
+		head = head2;
+		tail = tail2;
+	}
 }
