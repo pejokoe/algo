@@ -1,20 +1,22 @@
 package algo;
+import java.util.Comparator;
 public class LinkedList {
 
+	private int count = 0;
 	private class ListElement {
-		private Object el1;
+		private Comparable el1;
 		private ListElement el2;
 
-		public ListElement(Object el, ListElement nextElement) {
+		public ListElement(Comparable el, ListElement nextElement) {
 			el1 = el;
 			el2 = nextElement;
 		}
 
-		public ListElement(Object el) {
+		public ListElement(Comparable el) {
 			this(el, null);
 		}
 
-		public Object first() {
+		public Comparable first() {
 			return el1;
 		}
 
@@ -22,7 +24,7 @@ public class LinkedList {
 			return el2;
 		}
 
-		public void setFirst(Object value) {
+		public void setFirst(Comparable value) {
 			el1 = value;
 		}
 
@@ -37,15 +39,16 @@ public class LinkedList {
 		head = null;
 	}
 
-	public void addFirst(Object o) {
+	public void addFirst(Comparable o) {
 		head = new ListElement(o, head);
+		count++;
 	}
 
-	public Object getFirst() {
+	public Comparable getFirst() {
 		return head.first();
 	}
 
-	public Object get(int n) {
+	public Comparable get(int n) {
 		ListElement d = head;
 		while (n > 0) {
 			d = d.rest();
@@ -68,17 +71,11 @@ public class LinkedList {
 
 	// return size of linked list
 	public int size() {
-		int size = 0;
-		ListElement d = head;
-		while (d != null) {
-			size += 1;
-			d = d.rest();
-		}
-		return size;
+		return count;
 	}
 
-	// change object at position n to o
-	public void set(int n, Object o) {
+	// change Comparable at position n to o
+	public void set(int n, Comparable o) {
 		ListElement d = head;
 		for (int i = 0; i < n; i++) {
 			d = d.rest();
@@ -86,8 +83,8 @@ public class LinkedList {
 		d.setFirst(o);
 	}
 
-	// return last object
-	public Object getLast() {
+	// return last Comparable
+	public Comparable getLast() {
 		ListElement d = head;
 		while (d.rest() != null) {
 			d = d.rest();
@@ -95,8 +92,8 @@ public class LinkedList {
 		return d.first();
 	}
 
-	// insert object o at last position
-	public void addLast(Object o) {
+	// insert Comparable o at last position
+	public void addLast(Comparable o) {
 		ListElement d = head;
 		if (head == null) {
 			this.addFirst(o);
@@ -106,10 +103,11 @@ public class LinkedList {
 			}
 			d.setRest(new ListElement(o, d.rest()));
 		}
+		count++;
 	}
 
-	// return position of object o, -1 if not found
-	public int search(Object o) {
+	// return position of Comparable o, -1 if not found
+	public int search(Comparable o) {
 		ListElement d = head;
 		int position = 0;
 		while (d != null) {
@@ -125,6 +123,7 @@ public class LinkedList {
 	// remove first element
 	public void removeFirst() {
 		head = head.rest();
+		count--;
 	}
 
 	// remove last element
@@ -134,10 +133,11 @@ public class LinkedList {
 			d = d.rest();
 		}
 		d.setRest(null);
+		count--;
 	}
 
-	// check if linked list contains object o
-	public boolean contains(Object o) {
+	// check if linked list contains Comparable o
+	public boolean contains(Comparable o) {
 		boolean contains = false;
 		if (this.search(o) != -1) {
 			contains = true;
@@ -212,4 +212,25 @@ public class LinkedList {
 			d = d.rest();
 		}
 	}
+	
+	public void addSorted(Comparable o) {
+		// an empty list , add element in front
+		if (head == null)
+			head = new ListElement(o, null);
+		else if (head.first().compareTo(o) > 0) {
+			// we have to add the element in front
+			head = new ListElement(o, head);
+		} else {
+			// we have to find the first element which is bigger
+			ListElement d = head;
+			while ((d.rest() != null) && (d.rest().first().compareTo(o) < 0)) {
+				d = d.rest();
+			}
+			ListElement next = d.rest();
+			d.setRest(new ListElement(o, next));
+		}
+		count++;
+	}
+	
+	
 }

@@ -1,4 +1,5 @@
 package algo;
+import java.util.Comparator;
 
 public class Stack {
 	
@@ -8,17 +9,17 @@ public class Stack {
 //		data = new Vector(10);
 //	}
 //
-//	public void push(Object o) {
+//	public void push(Comparable o) {
 //		data.addLast(o);
 //	}
 //
-//	public Object pop() {
-//		Object ret = data.getLast();
+//	public Comparable pop() {
+//		Comparable ret = data.getLast();
 //		data.removeLast();
 //		return ret;
 //	}
 //
-//	public Object top() {
+//	public Comparable top() {
 //		return data.getLast();
 //	}
 //
@@ -36,17 +37,17 @@ public class Stack {
 		data = new LinkedList();
 	}
 	
-	public void push(Object o) {
+	public void push(Comparable o) {
 		data.addFirst(o);
 	}
 
-	public Object pop() {
-		Object ret = data.getFirst();
+	public Comparable pop() {
+		Comparable ret = data.getFirst();
 		data.removeFirst();
 		return ret;
 	}
 
-	public Object top() {
+	public Comparable top() {
 		return data.getFirst();
 	}
 
