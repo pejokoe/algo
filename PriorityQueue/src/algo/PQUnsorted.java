@@ -61,8 +61,21 @@ public class PQUnsorted {
 		return ret;
 	}
 
+	
+	// also O(n^2)
 	public Comparable top() {
-		return ((PriorityPair) data.getFirst()).getElement();
+		Comparable prio = ((PriorityPair)data.getFirst()).getPriority();
+		Comparable ret = ((PriorityPair)data.getFirst()).getElement();
+		int position = 0;
+		for (int i = 1; i < data.size(); i++) { // n times
+			PriorityPair prio2 = ((PriorityPair)data.get(i)); // data.get(i) n steps
+			if (prio.compareTo(prio2.getPriority()) > 0){
+				prio = prio2.getPriority();
+				ret = prio2.getElement();
+				position = i;
+			}
+		}
+		return ret;
 	}
 
 	public int size() {
