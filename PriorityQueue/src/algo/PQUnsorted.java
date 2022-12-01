@@ -38,7 +38,7 @@ public class PQUnsorted {
 		data = new LinkedList();
 	}
 
-	public void push(Comparable o, int priority) {
+	public void push(Comparable o, Comparable priority) {
 		PriorityPair toAdd = new PriorityPair(o, priority);
 		data.addFirst(toAdd);
 	}

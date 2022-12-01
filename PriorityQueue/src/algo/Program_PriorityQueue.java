@@ -13,6 +13,7 @@ public class Program_PriorityQueue {
 		pq.push(2, 20);
 		int size = pq.size();
 		for (int i = 0; i < size; i++) {
+			System.out.println(pq.top());
 			System.out.println(pq.pop());
 		}
 	}
