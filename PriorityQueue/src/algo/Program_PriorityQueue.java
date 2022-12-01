@@ -10,7 +10,7 @@ public class Program_PriorityQueue {
 		pq.push(3, 100);
 		pq.push(76, 5);
 		pq.push(8, 12);
-		pq.push(2, 3);
+		pq.push(2, 20);
 		int size = pq.size();
 		for (int i = 0; i < size; i++) {
 			System.out.println(pq.pop());

@@ -232,5 +232,18 @@ public class LinkedList {
 		count++;
 	}
 	
+	public void removeAt(int n) {
+		ListElement d = head;
+		for (int i = 0; i < n-1; i++) {
+			d = d.rest();
+		}
+		if (n == 0) {
+			head = d.rest();
+		} else {
+			d.setRest(d.rest().rest());
+		}
+		count--;
+	}
+	
 	
 }

@@ -43,16 +43,21 @@ public class PQUnsorted {
 		data.addFirst(toAdd);
 	}
 
+	
+	// O(n^2) solution, no other solution found
 	public Comparable pop() {
 		Comparable prio = ((PriorityPair)data.getFirst()).getPriority();
 		Comparable ret = ((PriorityPair)data.getFirst()).getElement();
-		for (int i = 0; i < data.size(); i++) {
-			PriorityPair prio2 = ((PriorityPair)data.get(i));
+		int position = 0;
+		for (int i = 1; i < data.size(); i++) { // n times
+			PriorityPair prio2 = ((PriorityPair)data.get(i)); // data.get(i) n steps
 			if (prio.compareTo(prio2.getPriority()) > 0){
-				prio = prio2;
+				prio = prio2.getPriority();
 				ret = prio2.getElement();
+				position = i;
 			}
 		}
+		data.removeAt(position);
 		return ret;
 	}
 
