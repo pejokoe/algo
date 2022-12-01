@@ -1,3 +1,4 @@
+package algo;
 
 public class Program_Stack {
 	public static void main(String[] args) {

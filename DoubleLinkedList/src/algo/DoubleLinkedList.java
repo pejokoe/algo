@@ -1,3 +1,4 @@
+package algo;
 public class DoubleLinkedList {
 	private class DoubleLinkedListElement {
 		private Object data;

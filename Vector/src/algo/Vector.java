@@ -1,3 +1,4 @@
+package algo;
 public class Vector {
 	private Object data[];
 	private int count;
@@ -93,6 +94,7 @@ public class Vector {
 			}
 			data = tmp;
 		}
+		count--;
 	}
 
 	// returns a string representation of the contents of "this"
