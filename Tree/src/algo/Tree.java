@@ -2,8 +2,6 @@ package algo;
 
 import java.util.Comparator;
 
-import algo.Tree.TreeAction;
-
 public class Tree {
 	/*
 	 * private class NaturalComparator implements Comparator { public int
@@ -13,7 +11,7 @@ public class Tree {
 	// contains a value, a pointer to the left child and a pointer to the right
 	// child
 
-	private class TreeNode implements Comparable {
+	public class TreeNode implements Comparable {
 		private Comparable value;
 		private TreeNode leftNode;
 		private TreeNode rightNode;
@@ -54,9 +52,6 @@ public class Tree {
 
 	}
 
-	public abstract class TreeAction {
-		public abstract void run(Tree.TreeNode n);
-	}
 
 	// start of the actual tree class
 
@@ -144,9 +139,31 @@ public class Tree {
 		return tmp[0];
 	}
 	
-	public class TreePrinter extends TreeAction{
-		public void run(Tree.TreeNode n) {
-			System.out.println(n.toString());
-		}
+	
+	public int depth() {
+		 int depth = depthAtNode(root, 1);
+		 return depth;
 	}
+	
+	public int depthAtNode(TreeNode n, int depth) {
+		int depth_max = depth;
+		if (n.leftNode != null) {
+			depth = depthAtNode(n.leftNode, depth +1);
+			if (depth > depth_max) {
+				depth_max = depth;
+			};
+			return depth_max;
+			
+		}
+		if (n.rightNode != null) {
+			depth = depthAtNode(n.rightNode, depth + 1);
+			if (depth > depth_max) {
+				depth_max = depth;
+			};
+			return depth_max;
+		}
+		return depth_max;
+	}
+	
+	
 }

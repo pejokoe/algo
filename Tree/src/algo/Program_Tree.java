@@ -1,7 +1,5 @@
 package algo;
 
-import algo.Tree.TreePrinter;
-
 public class Program_Tree {
 	public static void main(String[] args) {
 		Tree myTree = new Tree();
@@ -10,8 +8,20 @@ public class Program_Tree {
 			myTree.insert(i+1);
 		}
 		System.out.println(myTree);
-		TreePrinter print = myTree.new TreePrinter();
+		TreePrinter print = new TreePrinter();
 		
 		myTree.traverse(print);
+		
+		Tree notLinear = new Tree();
+		notLinear.insert(2);
+		notLinear.insert(5);
+		notLinear.insert(3);
+		notLinear.insert(7);
+		notLinear.insert(1);
+		notLinear.insert(15);
+		notLinear.insert(3);
+		notLinear.insert(25);
+		
+		System.out.printf("\nDepth: %d", notLinear.depth());
 	}
 }
