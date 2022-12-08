@@ -1,5 +1,7 @@
 package algo;
 
+import algo.DoubleLinkedList;
+
 public class Program_DLL {
 	public static void main(String[] args) {
 		DoubleLinkedList mydll = new DoubleLinkedList();
