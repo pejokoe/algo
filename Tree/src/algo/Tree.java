@@ -141,8 +141,7 @@ public class Tree {
 	
 	
 	public int depth() {
-		 int depth = depthAtNode(root, 1);
-		 return depth;
+		 return depthAtNode(root, 1);
 	}
 	
 	public int depthAtNode(TreeNode n, int depth) {
@@ -163,5 +162,15 @@ public class Tree {
 		return depth;
 	}
 	
+	public Comparable biggest() {
+		return biggestAtNode(root);
+	}
 	
+	public Comparable biggestAtNode(TreeNode n) {
+		if (n.rightNode != null) {
+			return biggestAtNode(n.rightNode);
+		} else {
+			return n.value;
+		}
+	}
 }

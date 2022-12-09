@@ -29,6 +29,7 @@ public class Program_Tree {
 		notLinear.insert(87);
 		notLinear.insert(50);
 		
-		System.out.printf("\nDepth: %d", notLinear.depth());
+		System.out.printf("\nDepth: %d\n", notLinear.depth());
+		System.out.printf("Biggest: %s", notLinear.biggest().toString());
 	}
 }
