@@ -30,6 +30,18 @@ public class Program_Tree {
 		notLinear.insert(50);
 		
 		System.out.printf("\nDepth: %d\n", notLinear.depth());
-		System.out.printf("Biggest: %s", notLinear.biggest().toString());
+		System.out.printf("Biggest: %s\n", notLinear.biggest().toString());
+		
+		
+		QTree tree = new QTree();
+		tree.insert(4, 4);
+		tree.insert(1, 1);
+		tree.insert(3, 7);
+		tree.insert(6, 2);
+		tree.insert(8, 6);
+		tree.insert(1, 5);
+		tree.insert(5, 8);
+		tree.insert(2, 6);
+		System.out.printf("Smallest x: %s\n", tree.smallestX().toString());
 	}
 }
