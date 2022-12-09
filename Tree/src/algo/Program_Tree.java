@@ -21,6 +21,13 @@ public class Program_Tree {
 		notLinear.insert(15);
 		notLinear.insert(3);
 		notLinear.insert(25);
+		notLinear.insert(16);
+		notLinear.insert(6);
+		notLinear.insert(100);
+		notLinear.insert(4);
+		notLinear.insert(22);
+		notLinear.insert(87);
+		notLinear.insert(50);
 		
 		System.out.printf("\nDepth: %d", notLinear.depth());
 	}

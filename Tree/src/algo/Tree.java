@@ -146,23 +146,21 @@ public class Tree {
 	}
 	
 	public int depthAtNode(TreeNode n, int depth) {
-		int depth_max = depth;
+		int depth_left = 0;
+		int depth_right = 0;
 		if (n.leftNode != null) {
-			depth = depthAtNode(n.leftNode, depth +1);
-			if (depth > depth_max) {
-				depth_max = depth;
-			};
-			return depth_max;
-			
+			depth_left = depthAtNode(n.leftNode, depth +1);	
 		}
 		if (n.rightNode != null) {
-			depth = depthAtNode(n.rightNode, depth + 1);
-			if (depth > depth_max) {
-				depth_max = depth;
-			};
-			return depth_max;
+			depth_right = depthAtNode(n.rightNode, depth + 1);
 		}
-		return depth_max;
+		if (depth_left > depth) {
+			depth = depth_left;
+		}
+		if (depth_right > depth) {
+			depth = depth_right;
+		}		
+		return depth;
 	}
 	
 	
