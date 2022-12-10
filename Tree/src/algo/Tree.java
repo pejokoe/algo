@@ -173,4 +173,8 @@ public class Tree {
 			return n.value;
 		}
 	}
+	
+	public void swapTree() {
+		
+	}
 }
