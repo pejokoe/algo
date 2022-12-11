@@ -166,10 +166,37 @@ public class Tree {
 		return biggestAtNode(root);
 	}
 	
-	public Comparable biggestAtNode(TreeNode n) {
+	private Comparable biggestAtNode(TreeNode n) {
 		if (n.rightNode != null) {
 			return biggestAtNode(n.rightNode);
 		} else {
+			return n.value;
+		}
+	}
+	
+	public void swapTree() {
+		traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				TreeNode tmp = n.leftNode;
+				n.leftNode = n.rightNode;
+				n.rightNode = tmp;
+			}
+		});
+	}
+	
+	public Comparable smallest() {
+		return smallestAtNode(root, null);
+	}
+	
+	private Comparable smallestAtNode(TreeNode n, TreeNode parent) {
+		if (n.leftNode != null) {
+			return smallestAtNode(n.leftNode, n);
+		} else {
+			if (parent == null) {
+				root = n.rightNode;
+			} else {
+				parent.leftNode = n.rightNode;
+			}
 			return n.value;
 		}
 	}
