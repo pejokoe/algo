@@ -184,13 +184,13 @@ public class Tree {
 		});
 	}
 	
-	public Comparable smallest() {
-		return smallestAtNode(root, null);
+	public Comparable pop() {
+		return popAt(root, null);
 	}
 	
-	private Comparable smallestAtNode(TreeNode n, TreeNode parent) {
+	private Comparable popAt(TreeNode n, TreeNode parent) {
 		if (n.leftNode != null) {
-			return smallestAtNode(n.leftNode, n);
+			return popAt(n.leftNode, n);
 		} else {
 			if (parent == null) {
 				root = n.rightNode;
@@ -200,4 +200,34 @@ public class Tree {
 			return n.value;
 		}
 	}
+	
+	public Comparable median() {
+		return root.value;
+	}
+	
+	public Comparable smallest() {
+		return smallestAtNode(root);
+	}
+	
+	public Comparable smallestAtNode(TreeNode n) {
+		if (n.leftNode != null) {
+			return smallestAtNode(n.leftNode);
+		} else {
+			return n.value;
+		}
+	}
+	
+	// only for integer values
+	public float average() {
+		int[] s = {0};
+		float[] num = {0};
+		traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				s[0] += (int)n.value;
+				num[0]++;
+			}
+		});
+		return s[0] / num[0];
+	}
+	
 }

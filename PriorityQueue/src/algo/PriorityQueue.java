@@ -52,7 +52,7 @@ public class PriorityQueue {
 //	}
 	
 	public Comparable pop() {
-		return ((PriorityPair)data.smallest()).getElement();
+		return ((PriorityPair)data.pop()).getElement();
 	}
 
 //	public Comparable top() {
