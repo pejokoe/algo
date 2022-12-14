@@ -48,5 +48,6 @@ public class Program_Tree {
 		notLinear.swapTree();
 		System.out.println(notLinear);
 		System.out.println(notLinear.average());
+		System.out.println(6/2);
 	}
 }
