@@ -166,7 +166,7 @@ public class Tree {
 		return biggestAtNode(root);
 	}
 	
-	public Comparable biggestAtNode(TreeNode n) {
+	private Comparable biggestAtNode(TreeNode n) {
 		if (n.rightNode != null) {
 			return biggestAtNode(n.rightNode);
 		} else {
@@ -175,6 +175,58 @@ public class Tree {
 	}
 	
 	public void swapTree() {
-		
+		traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				TreeNode tmp = n.leftNode;
+				n.leftNode = n.rightNode;
+				n.rightNode = tmp;
+			}
+		});
+	}
+	
+	public Comparable pop() {
+		return popAt(root, null);
+	}
+	
+	private Comparable popAt(TreeNode n, TreeNode parent) {
+		if (n.leftNode != null) {
+			return popAt(n.leftNode, n);
+		} else {
+			if (parent == null) {
+				root = n.rightNode;
+			} else {
+				parent.leftNode = n.rightNode;
+			}
+			return n.value;
+		}
+	}
+	
+	public Comparable median() {
+		return root.value;
+	}
+	
+	public Comparable smallest() {
+		return smallestAtNode(root);
+	}
+	
+	public Comparable smallestAtNode(TreeNode n) {
+		if (n.leftNode != null) {
+			return smallestAtNode(n.leftNode);
+		} else {
+			return n.value;
+		}
+	}
+	
+	// only for integer values
+	public float average() {
+		int[] s = {0};
+		float[] num = {0};
+		traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				s[0] += (int)n.value;
+				num[0]++;
+			}
+		});
+		return s[0] / num[0];
 	}
 }

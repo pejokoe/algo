@@ -27,28 +27,39 @@ public class PriorityQueue {
 
 	}
 
-	private LinkedList data;
-
+//	private LinkedList data;
+	private Tree data;
+	
 	public PriorityQueue() {
-		data = new LinkedList();
+//		data = new LinkedList();
+		data = new Tree();
 	}
 
+//	public void push(Comparable o, Comparable priority) {
+//		PriorityPair toAdd = new PriorityPair(o, priority);
+//		data.addSorted(toAdd);
+//	}
+	
 	public void push(Comparable o, Comparable priority) {
 		PriorityPair toAdd = new PriorityPair(o, priority);
-		data.addSorted(toAdd);
+		data.insert(toAdd);
 	}
 
+//	public Comparable pop() {
+//		Comparable ret = ((PriorityPair) data.getFirst()).getElement();
+//		data.removeFirst();
+//		return ret;
+//	}
+	
 	public Comparable pop() {
-		Comparable ret = ((PriorityPair) data.getFirst()).getElement();
-		data.removeFirst();
-		return ret;
+		return ((PriorityPair)data.pop()).getElement();
 	}
 
-	public Comparable top() {
-		return ((PriorityPair) data.getFirst()).getElement();
-	}
+//	public Comparable top() {
+//		return ((PriorityPair) data.getFirst()).getElement();
+//	}
 
-	public int size() {
-		return data.size();
-	}
+//	public int size() {
+//		return data.size();
+//	}
 }
