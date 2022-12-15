@@ -18,7 +18,7 @@ public class Vector {
 	}
 
 	public Comparable get(int index) {
-		if (index > data.length) {
+		if (index > count) {
 			System.out.println("Index out of bounds!");
 			return -1;
 		}
@@ -161,5 +161,16 @@ public class Vector {
 	
 	public int capacity() {
 		return data.length;
+	}
+	
+	public void removeAt(int idx) {
+		if(-1 < idx && idx < count) {
+			for(int i = idx; i < count - 1; i++) {
+				data[i] = data[i+1];
+			}
+			count--;
+		} else {
+			System.out.println("Index out of range!");
+		}
 	}
 }

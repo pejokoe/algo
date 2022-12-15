@@ -1,7 +1,5 @@
 package algo;
 
-import algo.LinkedList.ListElement;
-
 public class CircularVector 
 {
 	private Vector data;
