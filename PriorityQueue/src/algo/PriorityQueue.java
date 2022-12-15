@@ -14,7 +14,7 @@ public class PriorityQueue {
 
 		public int compareTo(Object o) {
 			PriorityPair p2 = (PriorityPair) o;
-			return ((Comparable) priority).compareTo(p2.priority);
+			return priority.compareTo(p2.priority);
 		}
 
 		public Comparable getElement() {

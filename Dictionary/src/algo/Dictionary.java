@@ -1,3 +1,5 @@
+package algo;
+
 public class Dictionary {
 	private class DictionaryPair implements Comparable {
 		private Comparable key;

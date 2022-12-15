@@ -41,9 +41,9 @@ public class Tree {
 		}
 
 		@Override
-		public int compareTo(Object arg0) {
-			// TODO Auto-generated method stub
-			return 0;
+		public int compareTo(Object o) {
+			TreeNode tmp = (TreeNode)o;
+			return this.value.compareTo(tmp.value);
 		}
 		
 		public String toString() {
@@ -117,7 +117,7 @@ public class Tree {
 			else
 				root = newNode;
 		} else if (element.compareTo(current.value) == 0) {
-			// if the element is already in the tree, what to do?
+			current.value = element;
 		}
 		// if the element is smaller than current, go left
 		else if (element.compareTo(current.value) < 0) {
@@ -228,5 +228,49 @@ public class Tree {
 			}
 		});
 		return s[0] / num[0];
+	}
+	
+	public boolean contains(Comparable key) {
+		return containsAt(root, key);
+	}
+	
+	public boolean containsAt(TreeNode n, Comparable pair) {
+		if (pair.compareTo(n.value) < 0) {
+			if (n.leftNode != null) {
+				return containsAt(n.leftNode, pair);
+			} else {
+				return false;
+			}
+		} else if (pair.compareTo(n.value) > 0) {
+			if (n.rightNode != null) {
+				return containsAt(n.rightNode, pair);
+			} else {
+				return false;	
+			}
+		} else {
+			return true;
+		}
+	}
+	
+	public Comparable find(Comparable pair) {
+		return findAt(root, pair);
+	}
+	
+	public Comparable findAt(TreeNode n, Comparable pair) {
+		if (pair.compareTo(n.value) < 0) {
+			if (n.leftNode != null) {
+				return findAt(n.leftNode, pair);
+			} else {
+				return null;
+			}
+		} else if (pair.compareTo(n.value) > 0) {
+			if (n.rightNode != null) {
+				return findAt(n.rightNode, pair);
+			} else {
+				return null;	
+			}
+		} else {
+			return n.value;
+		}
 	}
 }

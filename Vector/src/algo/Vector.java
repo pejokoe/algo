@@ -90,11 +90,9 @@ public class Vector {
 	// removes the first element
 	public void removeFirst() {
 		if (this.count > 0) {
-			Comparable[] tmp = new Comparable[count - 1];
 			for (int i = 0; i < count - 1; i++) {
-				tmp[i] = data[i + 1];
+				data[i] = data[i + 1];
 			}
-			data = tmp;
 		}
 		count--;
 	}
