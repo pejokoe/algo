@@ -2,7 +2,7 @@ package algo;
 
 public class CircularVector 
 {
-	private Vector data;
+	private Comparable[] data;
 	private int first;
 	private int count;
 	private int length;
@@ -12,7 +12,7 @@ public class CircularVector
 		this.length = length;
 		count = 0;
 		first = 1;
-		data = new Vector(this.length);
+		data = new Comparable[5];
 	}
 
 	public int size()
@@ -25,7 +25,7 @@ public class CircularVector
 		if(count + 1 > length) {
 			System.out.println("This vector is full!");
 		} else {
-			data.set((first = (first - 1 + data.capacity()) % data.capacity()), element);
+			data[first = (first - 1 + data.length) % data.length] = element;
 			count++;
 		}
 	}
@@ -35,26 +35,26 @@ public class CircularVector
 		if(count + 1 > length) {
 			System.out.println("This vector is full!");
 		} else {
-			data.set((first+count)%data.capacity(), element);
+			data[(first+count)% data.length] = element;
 			count++;
 		}
 	}
 
 	public Comparable getFirst()
 	{
-		return data.get(first);
+		return data[first];
 	}
 
 	public Comparable getLast()
 	{
-		return data.get((first+count)%data.capacity()-1);
+		return data[(first+count)%data.length-1];
 	}
 
 	public void removeFirst()
 	{
 		if(count > 0)
 		{
-			first = (first+1)%data.capacity();
+			first = (first+1)%data.length;
 			count--;
 		}
 	}
@@ -69,8 +69,8 @@ public class CircularVector
     String s = "[";
 		for(int i=0;i<count;i++)
 		{
-			int index = (first + i) % data.capacity();
-			s += data.get(index).toString();
+			int index = (first + i) % data.length;
+			s += data[index].toString();
 			s += " ";
 		}
     s += "]";

@@ -6,6 +6,7 @@ public class Program_CV {
 		CircularVector cv = new CircularVector(5);
 		cv.addFirst(45);
 		cv.addFirst(2);
+		cv.removeFirst();
 		cv.addFirst(3);
 		cv.addLast(1);
 		cv.addLast(66);

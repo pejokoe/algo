@@ -3,10 +3,10 @@ import java.util.Comparator;
 
 public class Queue {
 	
-	private Vector data;
+	private CircularVector data;
 	
 	public Queue() {
-		data = new Vector(10);
+		data = new CircularVector(10);
 	}
 
 	public void push(Comparable o) {
