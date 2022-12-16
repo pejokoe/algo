@@ -49,5 +49,6 @@ public class Program_Tree {
 		System.out.println(notLinear);
 		System.out.println(notLinear.average());
 		System.out.println(6/2);
+		System.out.println("Test".compareTo("Ttest"));
 	}
 }
