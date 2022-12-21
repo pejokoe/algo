@@ -234,6 +234,9 @@ public class Tree {
 	}
 	
 	public boolean containsAt(TreeNode n, Comparable pair) {
+		if (n == null) {
+			return false;
+		}
 		if (pair.compareTo(n.value) < 0) {
 			if (n.leftNode != null) {
 				return containsAt(n.leftNode, pair);
