@@ -11,5 +11,6 @@ public class Program_wh {
 		Order test = new Order(kev);
 		test.addItem(fb);
 		wh.finalizeOrder(test);
+		System.out.println(wh.search("football"));
 	}
 }

@@ -36,7 +36,8 @@ public class Warehouse {
 		System.out.println(itemsToShip);
 	}
 	
-	public int search(Product p) {
+	public int search(String name) {
+		Product p = new Product(name, 0, 0, "dummy");
 		Product product = (Product)stock.find(p);
 		if (product != null) {
 			return product.getQuantity();
