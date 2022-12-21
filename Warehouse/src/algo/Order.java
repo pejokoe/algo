@@ -9,12 +9,12 @@ public class Order {
 		items = new LinkedList();
 	}
 	
+	// addItem and removeItem: either add a new instance for every item or increase quantity if same 
+	// item is added twice or more
+
 	public void addItem(Product item) {
-		if (!items.contains(item)) {
-			items.addFirst(item);
-		} else {
-			item.increaseQuantity(1);
-		}
+		Product toAdd = new Product(item.getName(), item.getPrice(), item.getUniqueBarcodeId(), item.getLocation());
+		items.addFirst(toAdd);
 	}
 	
 	public void removeItem(Product item) {

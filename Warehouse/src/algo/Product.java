@@ -7,18 +7,27 @@ package algo;
 // this decision will be easier once I know the warehouse interface
 
 public class Product implements Comparable{
-	private static int id = 0;
 	private String name;
 	private float price;
 	private int uniqueBarcodeId;
 	private String location;
 	private int quantity;
 	
-	public Product(String name, float price, String loc) {
+	public Product(String name, float price, int id, String loc) {
+		this.name = name;
+		this.price = price;
+		this.uniqueBarcodeId = id;
+		this.location = loc;
+		this.quantity = 1;
+	}
+
+	
+	public Product(String name, float price, int id, String loc, int quantity) {
 		this.name = name;
 		this.price = price;
 		this.uniqueBarcodeId = id++;
 		this.location = loc;
+		this.quantity = quantity;
 	}
 
 	public int compareTo(Object o) {

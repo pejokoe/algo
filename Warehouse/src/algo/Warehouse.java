@@ -31,6 +31,9 @@ public class Warehouse {
 			}
 		}
 		// then do something with itemsToShip
+		// for testing print
+		System.out.printf("%s's order:\n", order.getClient().getName());
+		System.out.println(itemsToShip);
 	}
 	
 	public int search(Product p) {
@@ -39,6 +42,15 @@ public class Warehouse {
 			return product.getQuantity();
 		} else {
 			return -1;
+		}
+	}
+	
+	public void addItem(Product product) {
+		Product p = (Product)stock.find(product);
+		if (p == null) {
+			stock.insert(product);
+		} else {
+			p.increaseQuantity(1);
 		}
 	}
 	

@@ -256,6 +256,7 @@ public class Tree {
 	}
 	
 	public Comparable findAt(TreeNode n, Comparable pair) {
+		if (n==null) return null;
 		if (pair.compareTo(n.value) < 0) {
 			if (n.leftNode != null) {
 				return findAt(n.leftNode, pair);
