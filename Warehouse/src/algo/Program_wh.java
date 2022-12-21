@@ -1,5 +1,7 @@
 package algo;
 
 public class Program_wh {
-	Warehouse wh = new Warehouse();
+	public static void main(String[] args) {
+		
+	}
 }

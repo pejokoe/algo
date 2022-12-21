@@ -42,8 +42,7 @@ public class Tree {
 
 		@Override
 		public int compareTo(Object o) {
-			TreeNode tmp = (TreeNode)o;
-			return this.value.compareTo(tmp.value);
+			return this.value.compareTo(((TreeNode)o).value);
 		}
 		
 		public String toString() {

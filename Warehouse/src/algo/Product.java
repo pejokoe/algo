@@ -22,7 +22,9 @@ public class Product implements Comparable{
 	}
 
 	public int compareTo(Object o) {
-		return name.compareTo((String) o);
+		return uniqueBarcodeId - ((Product)o).uniqueBarcodeId; /* unique barcode as metric 
+																  for comparison (needed for 
+																  binary tree) */
 	}
 	
 	public void setQuantity(int q) {
@@ -57,6 +59,6 @@ public class Product implements Comparable{
 		return "Product name: " + name +
 			   "\nPrice: " + price +
 			   "\nBarcode: " + uniqueBarcodeId +
-			   "Quantity: " + quantity;
+			   "\nQuantity: " + quantity;
 	}
 }

@@ -1,5 +1,4 @@
 package algo;
-import java.util.Comparator;
 
 public class Queue {
 	
