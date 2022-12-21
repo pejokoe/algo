@@ -59,6 +59,6 @@ public class Product implements Comparable{
 		return "Product name: " + name +
 			   "\nPrice: " + price +
 			   "\nBarcode: " + uniqueBarcodeId +
-			   "\nQuantity: " + quantity;
+			   "\nQuantity: " + quantity + "\n";
 	}
 }

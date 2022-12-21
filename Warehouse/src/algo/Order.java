@@ -23,7 +23,7 @@ public class Order {
 		} else if (item.getQuantity() > 1) {
 			item.increaseQuantity(-1);
 		} else {
-			System.out.printf("This order does not contain the item %s.\n", item.toString());
+			System.out.printf("This order does not contain the item '%s'.\n", item.getName());
 		}
 	}
 
