@@ -4,6 +4,7 @@ package algo;
 // decision for now: one product instance for every type of product, hold quantity internally
 // maybe change later: product instance for every single product that exists
 // this means: for a product that is added to an order, a new instance of the product has to be created
+// this decision will be easier once I know the warehouse interface
 
 public class Product implements Comparable{
 	private static int id = 0;
