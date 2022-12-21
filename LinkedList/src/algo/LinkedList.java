@@ -251,6 +251,7 @@ public class LinkedList {
 		while (d.rest() != null) {
 			if (d.rest().first() == ele) {
 				d.setRest(d.rest().rest());
+				count--;
 				return;
 			}
 			d = d.rest();
