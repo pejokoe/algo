@@ -245,5 +245,18 @@ public class LinkedList {
 		count--;
 	}
 	
+	// remove and search in one function
+	public void remove(Comparable ele) {
+		ListElement d = head;
+		while (d.rest() != null) {
+			if (d.rest().first() == ele) {
+				d.setRest(d.rest().rest());
+				return;
+			}
+			d = d.rest();
+		}
+		System.out.printf("The list does not contain %s. \n" , ele.toString());
+	}
+	
 	
 }
