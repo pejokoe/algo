@@ -10,5 +10,17 @@ public class program_graph {
 		mg.addEdge(1, 2, 4);
 		mg.addEdge(2, 3, 7);
 		System.out.println(mg);
+		Graph g = new Graph();
+		g.addNode("A");
+		g.addNode("B");
+		g.addNode("C");
+		g.addNode("D");
+		g.addEdge("A", "B");
+		g.addEdge("A", "C");
+		g.addEdge("B", "A");
+		g.addEdge("B", "C");
+		g.addEdge("B", "D");
+		g.addEdge("C", "D");
+		System.out.println(g);
 	}
 }

@@ -50,13 +50,17 @@ public class Graph
             Edge n = (Edge)o;
             return n.toNode.compareTo(toNode);
         }
+        
+        public String toString() {
+        	return " --> " + toNode.info;
+        }
     }
     
     private Vector nodes;
     
     public Graph()
     {
-        nodes = new Vector();
+        nodes = new Vector(5);
     }
     
     public void addNode(Comparable label)
@@ -85,5 +89,18 @@ public class Graph
         Node n1 = findNode(nodeLabel1);
         Node n2 = findNode(nodeLabel2);
         n1.addEdge(new Edge(n2));
+    }
+    
+    public String toString() {
+    	String output = "";
+    	for (int i = 0; i < nodes.size(); i++) {
+    		Node currentNode = (Node)nodes.get(i);
+    		output += "|" + currentNode.info + "|";
+    		for(int j = 0; j < currentNode.edges.size(); j++) {
+    			output += ((Edge)currentNode.edges.get(j)).toString();
+    		}
+    		output += "\n";
+    	}
+    	return output;
     }
 }
