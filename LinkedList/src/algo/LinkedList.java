@@ -109,7 +109,7 @@ public class LinkedList {
 		ListElement d = head;
 		int position = 0;
 		while (d != null) {
-			if (d.first() == o) {
+			if (d.first().compareTo(o) == 0) {
 				return position;
 			}
 			position += 1;

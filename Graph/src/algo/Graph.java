@@ -5,17 +5,22 @@ public class Graph
     public class Node implements Comparable
     {
         private Comparable info;
-        private Vector edges;
+        private LinkedList edges;
+//        private Vector edges;
+        private boolean visited;
         
         public Node(Comparable label)
         {
             info = label;
-            edges = new Vector(5);
+            edges = new LinkedList();
+//            edges = new Vector(5);
+            visited = false;
         }
         
         public void addEdge(Edge e)
         {
-            edges.addLast(e);
+            edges.addFirst(e);
+//        	edges.addLast(e);
         }
         
         public int compareTo(Object o)
@@ -32,6 +37,10 @@ public class Graph
         
         public String toString() {
         	return info.toString();
+        }
+        
+        public void setVisited(boolean v) {
+        	visited = v;
         }
         
     }
@@ -62,31 +71,24 @@ public class Graph
         }
     }
     
-    private Vector nodes;
+    private LinkedList nodes;
+//    private Vector nodes;
     
     public Graph()
     {
-        nodes = new Vector(5);
+    	nodes = new LinkedList();
+//        nodes = new Vector(5);
     }
     
     public void addNode(Comparable label)
     {
-        nodes.addLast(new Node(label));
+        nodes.addFirst(new Node(label));
+//    	nodes.addLast(new Node(label));
     }
     
     private Node findNode(Comparable nodeLabel)
     {
-        Node res = null;
-        for (int i=0; i<nodes.size(); i++)
-        {
-            Node n = (Node)nodes.get(i);
-            if(n.getLabel() == nodeLabel)
-            {
-                res = n;
-                break;
-            }
-        }
-        return res;
+        return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
     }
     
     public void addEdge(Comparable nodeLabel1,
@@ -113,6 +115,7 @@ public class Graph
     
 	
 	public Vector findPath(Comparable from, Comparable to) {
+		resetVisited();
 		Node startState = findNode(from);
 		Node endState = findNode(to);
 		Stack toDoList = new Stack();
@@ -126,17 +129,25 @@ public class Graph
 			else {
 				for (int i = 0; i < currentNode.edges.size(); i++) {
 					Edge e = (Edge)currentNode.edges.get(i);
-					Vector possiblePath = new Vector(5);
-					// elementwise copy of currentPath
-					for (int j = 0; j < currentPath.size(); j++) {
-						possiblePath.addLast(currentPath.get(j));
+					if (!e.toNode.visited) {
+						e.toNode.visited = true;
+						Vector possiblePath = new Vector(5);
+						// element-wise copy of currentPath
+						for (int j = 0; j < currentPath.size(); j++) {
+							possiblePath.addLast(currentPath.get(j));
+						}
+						possiblePath.addLast(e.toNode);
+						toDoList.push(possiblePath);
 					}
-					possiblePath.addLast(e.toNode);
-					toDoList.push(possiblePath);
-					
 				}
 			}
 		}
 		return null;
+	}
+	
+	public void resetVisited() {
+		for (int i = 0; i < nodes.size(); i++) {
+			((Node)nodes.get(i)).visited = false;
+		}
 	}
 }

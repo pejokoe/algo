@@ -150,7 +150,7 @@ public class Vector implements Comparable{
 	// return position of Comparable o, -1 if not found
 	public int search(Comparable o) {
 		for (int i = 0; i < count; i++) {
-			if (data[i] == o) {
+			if (data[i].compareTo(o) == 0) {
 				return i;
 			}
 		}

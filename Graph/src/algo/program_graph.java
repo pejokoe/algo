@@ -18,9 +18,12 @@ public class program_graph {
 		g.addEdge("A", "B", 6);
 		g.addEdge("A", "C", 5);
 		g.addEdge("B", "A", 3);
-		g.addEdge("C", "B", 4);
+		g.addEdge("B", "C", 4);
 		g.addEdge("B", "D", 9);
+		g.addEdge("C",  "D", 7);
+		g.addEdge("C",  "A", 1);
 		System.out.println(g);
+		System.out.println(g.findPath("A", "C"));
 		System.out.println(g.findPath("A", "D"));
 	}
 }
