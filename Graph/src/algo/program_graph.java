@@ -15,12 +15,12 @@ public class program_graph {
 		g.addNode("B");
 		g.addNode("C");
 		g.addNode("D");
-		g.addEdge("A", "B");
-		g.addEdge("A", "C");
-		g.addEdge("B", "A");
-		g.addEdge("B", "C");
-		g.addEdge("B", "D");
-		g.addEdge("C", "D");
+		g.addEdge("A", "B", 6);
+		g.addEdge("A", "C", 5);
+		g.addEdge("B", "A", 3);
+		g.addEdge("C", "B", 4);
+		g.addEdge("B", "D", 9);
 		System.out.println(g);
+		System.out.println(g.findPath("A", "D"));
 	}
 }

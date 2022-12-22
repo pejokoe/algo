@@ -29,7 +29,7 @@ public class MatrixGraph
 		for (int i = 0; i < nodes; i++) {
 			output += i + ". node: \n";
 			for (int j = 0; j < nodes; j++) {
-				output += "Connection to node " + j + ": " + data.get(i, j) + "\n";
+				output += "Connection to node " + j + ": " + data.get(i, j).toString() + "\n";
 			}
 			output += "\n\n";
 		}

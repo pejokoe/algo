@@ -30,15 +30,21 @@ public class Graph
             return info;
         }
         
+        public String toString() {
+        	return info.toString();
+        }
+        
     }
     
     private class Edge implements Comparable
     {
         private Node toNode;
+        private Comparable weight;
         
-        public Edge(Node to)
+        public Edge(Node to, Comparable weight)
         {
             toNode = to;
+            this.weight = weight;
         }
         
         public int compareTo(Object o)
@@ -52,7 +58,7 @@ public class Graph
         }
         
         public String toString() {
-        	return " --> " + toNode.info;
+        	return " --> " + toNode.info + "(" + weight.toString() + ")";
         }
     }
     
@@ -84,11 +90,12 @@ public class Graph
     }
     
     public void addEdge(Comparable nodeLabel1,
-                        Comparable nodeLabel2)
+                        Comparable nodeLabel2,
+                        Comparable weight)
     {
         Node n1 = findNode(nodeLabel1);
         Node n2 = findNode(nodeLabel2);
-        n1.addEdge(new Edge(n2));
+        n1.addEdge(new Edge(n2, weight));
     }
     
     public String toString() {
@@ -103,4 +110,33 @@ public class Graph
     	}
     	return output;
     }
+    
+	
+	public Vector findPath(Comparable from, Comparable to) {
+		Node startState = findNode(from);
+		Node endState = findNode(to);
+		Stack toDoList = new Stack();
+		Vector startVector = new Vector(5);
+		startVector.addLast(startState);
+		toDoList.push(startVector);
+		while(!toDoList.empty()) {
+			Vector currentPath = (Vector)toDoList.pop();
+			Node currentNode = (Node)currentPath.getLast();
+			if (currentNode == endState) return currentPath;
+			else {
+				for (int i = 0; i < currentNode.edges.size(); i++) {
+					Edge e = (Edge)currentNode.edges.get(i);
+					Vector possiblePath = new Vector(5);
+					// elementwise copy of currentPath
+					for (int j = 0; j < currentPath.size(); j++) {
+						possiblePath.addLast(currentPath.get(j));
+					}
+					possiblePath.addLast(e.toNode);
+					toDoList.push(possiblePath);
+					
+				}
+			}
+		}
+		return null;
+	}
 }

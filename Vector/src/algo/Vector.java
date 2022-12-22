@@ -1,5 +1,5 @@
 package algo;
-public class Vector {
+public class Vector implements Comparable{
 	private Comparable data[];
 	private int count;
 
@@ -74,7 +74,7 @@ public class Vector {
 
 	// returns the last element
 	public Comparable getLast() {
-		return data[this.size()];
+		return data[this.size()-1];
 	}
 
 	// removes the last element
@@ -170,5 +170,9 @@ public class Vector {
 		} else {
 			System.out.println("Index out of range!");
 		}
+	}
+	
+	public int compareTo(Object o) {
+		return 0;
 	}
 }

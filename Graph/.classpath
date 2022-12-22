@@ -7,5 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="/Vector"/>
+	<classpathentry kind="src" path="/LinkedList"/>
+	<classpathentry kind="src" path="/Stack"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
