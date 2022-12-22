@@ -1,4 +1,8 @@
-package algo;
+package algoProject;
+
+import algo.LinkedList;
+import algo.Tree;
+import algo.Vector;
 
 public class Warehouse {
 	private Tree stock; 											/* structure underlying tree not yet decided, 

@@ -1,4 +1,4 @@
-package algo;
+package algoProject;
 
 public class Program_wh {
 	public static void main(String[] args) {

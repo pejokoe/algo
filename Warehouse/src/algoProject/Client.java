@@ -1,4 +1,4 @@
-package algo;
+package algoProject;
 
 public class Client {
 	private static int generateID = 0;

@@ -1,4 +1,6 @@
-package algo;
+package algoProject;
+
+import algo.LinkedList;
 
 public class Order {
 	private LinkedList items; 					// LinkedList allows find and remove in O(n)

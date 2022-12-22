@@ -1,4 +1,4 @@
-package algo;
+package algoProject;
 
 
 // decision for now: one product instance for every type of product, hold quantity internally
