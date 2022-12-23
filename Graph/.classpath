@@ -9,5 +9,6 @@
 	<classpathentry kind="src" path="/Vector"/>
 	<classpathentry kind="src" path="/LinkedList"/>
 	<classpathentry kind="src" path="/Stack"/>
+	<classpathentry kind="src" path="/Tree"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

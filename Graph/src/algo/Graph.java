@@ -1,5 +1,7 @@
 package algo;
 
+import algo.Tree.TreeNode;
+
 public class Graph
 {
     public class Node implements Comparable
@@ -70,25 +72,28 @@ public class Graph
         	return " --> " + toNode.info + "(" + weight.toString() + ")";
         }
     }
-    
-    private LinkedList nodes;
+    private Tree nodes;
+//    private LinkedList nodes;
 //    private Vector nodes;
     
     public Graph()
     {
-    	nodes = new LinkedList();
+    	nodes = new Tree();
+//    	nodes = new LinkedList();
 //        nodes = new Vector(5);
     }
     
     public void addNode(Comparable label)
     {
-        nodes.addFirst(new Node(label));
+    	nodes.insert(new Node(label));
+//        nodes.addFirst(new Node(label));
 //    	nodes.addLast(new Node(label));
     }
     
     private Node findNode(Comparable nodeLabel)
     {
-        return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
+    	return (Node)nodes.get(nodes.find(new Node(nodeLabel)));
+//        return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
     }
     
     public void addEdge(Comparable nodeLabel1,
@@ -112,6 +117,18 @@ public class Graph
     	}
     	return output;
     }
+//    public String toString() {
+//    	String output = "";
+//    	for (int i = 0; i < nodes.size(); i++) {
+//    		Node currentNode = (Node)nodes.get(i);
+//    		output += "|" + currentNode.info + "|";
+//    		for(int j = 0; j < currentNode.edges.size(); j++) {
+//    			output += ((Edge)currentNode.edges.get(j)).toString();
+//    		}
+//    		output += "\n";
+//    	}
+//    	return output;
+//    }
     
 	
 	public Vector findPath(Comparable from, Comparable to) {
@@ -146,8 +163,16 @@ public class Graph
 	}
 	
 	public void resetVisited() {
-		for (int i = 0; i < nodes.size(); i++) {
-			((Node)nodes.get(i)).visited = false;
-		}
+		nodes.traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				((Node)n.getValue()).visited = false;
+			}
+		});
 	}
+	
+//	public void resetVisited() {
+//		for (int i = 0; i < nodes.size(); i++) {
+//			((Node)nodes.get(i)).visited = false;
+//		}
+//	}
 }
