@@ -57,9 +57,17 @@ public class Product implements Comparable{
 	public String getName() {
 		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public float getPrice() {
 		return price;
+	}
+	
+	public void setPrice(float price) {
+		this.price = price;
 	}
 
 	public int getUniqueBarcodeId() {
@@ -75,9 +83,9 @@ public class Product implements Comparable{
 	}
 	
 	public String toString() {
-		return "Product name: " + name +
-			   "\nPrice: " + price +
-			   "\nBarcode: " + uniqueBarcodeId +
-			   "\nQuantity: " + quantity + "\n";
+		return " Product name: " + name +
+			   "\n  Price: " + price +
+			   "\n  Barcode: " + uniqueBarcodeId +
+			   "\n  Quantity: " + quantity + "\n";
 	}
 }

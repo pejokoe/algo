@@ -6,11 +6,11 @@ public class Order implements Comparable{
 	private static int idGenerator = 0;
 	private int uniqueId;
 	private LinkedList items; 					// LinkedList allows find and remove in O(n)
-	private int clientId;
+	private Client client;
 	
-	public Order(int clientId) {
+	public Order(Client client) {
 		this.uniqueId = idGenerator++;
-		this.clientId = clientId;
+		this.client = client;
 		items = new LinkedList();
 	}
 	
@@ -22,17 +22,17 @@ public class Order implements Comparable{
 	// item is added twice or more
 
 	public void addItem(Product item) {
-		items.addFirst(item);
+		int position = items.search(item);
+		if (position == -1) {
+			items.addFirst(item);
+		} else {
+			Product p = (Product)items.get(position);
+			p.setQuantity(p.getQuantity() + item.getQuantity());
+		}
 	}
 	
 	public void removeItem(Product item) {
-		if (item.getQuantity() == 1) {
-			items.remove(item);
-		} else if (item.getQuantity() > 1) {
-			item.increaseQuantity(-1);
-		} else {
-			System.out.printf("This order does not contain the item '%s'.\n", item.getName());
-		}
+		items.remove(item);
 	}
 	
 	public int getUniqueId() {
@@ -47,9 +47,15 @@ public class Order implements Comparable{
 		return items;
 	}
 	
+	public Client getClient() {
+		return client;
+	}
+	
 	public String toString() {
 		return items.toString();
 	}
 	
-	
+	public void done() {
+		items = null;
+	}
 }

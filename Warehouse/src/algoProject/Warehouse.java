@@ -6,23 +6,24 @@ import algo.Tree;
 import algo.Vector;
 
 public class Warehouse {
+	// due to the nature ids are generated, all structures will always be sorted automatically
 	private Tree stock; 											/* structure underlying tree not yet decided, 
 																	   tree will be sorted by unique barcode id of 
 																	   products */
 	private DictionaryTree productDictionary;						/* use a dictionary to associate product IDs with product names,
 																	   because finding products has to be possible based on both
 																	   This way, name based lookup will be 2 * log(n) instead of n * log(n) */
-	private Vector location;										/* this vector will serve as the base for a 
+	private Tree location;										/* this vector will serve as the base for a 
 																	   vector + linkedList representation of the 
 																	   graph for locations */
-	private Vector clients;
+	private Tree clients;
 	private Tree orders;
 	
 	public Warehouse() {
 		stock = new Tree();
 		productDictionary = new DictionaryTree();
-		location = new Vector(10);
-		clients = new Vector(10);
+		location = new Tree();
+		clients = new Tree();
 		orders = new Tree();
 	}
 	
@@ -73,48 +74,58 @@ public class Warehouse {
 	
 	public int registerClient(String name, String email) {
 		Client client = new Client(name, email);
-		clients.addLast(client);
+		clients.insert(client);
 		return client.getUniqueID();
 	}
 	
 	public int createOrder(int clientId) {
-		Order order = new Order(clientId);
+		Client client = searchClient(clientId);
+		Order order = new Order(client);
 		orders.insert(order);
 		return order.getUniqueId();
 	}
 	
 	public void addToOrder(int productId, int quantity, int orderId) {
-		Order dummy = new Order(0);
+		Order dummy = new Order(null);
 		dummy.setUniqueId(orderId);
 		Order addTo = (Order)orders.find(dummy);
-		Product p = searchId(productId);
-		if (quantity > p.getQuantity()) {
-			quantity = p.getQuantity();
-		}
-		p.setQuantity(p.getQuantity() - quantity);
-		addTo.addItem(new Product(p.getName(), quantity, productId));
+		addTo.addItem(new Product("placeholder", quantity, productId));
 	}
 	
-	public void finalizeOrder(Order order) {
+	public void finalizeOrder(int orderId) {
+		Order order = searchOrder(orderId);
 		LinkedList itemsToShip = new LinkedList();
 		for (int i = 0; i < order.getItems().size(); i++) {
 			Product p = (Product)order.getItems().getFirst();
-			Product stock_p = (Product)stock.find(p);
+			Product stock_p = (Product) stock.find(p);
 			if (stock_p != null) {
-				if(stock_p.getQuantity() >= p.getQuantity()) {
-					itemsToShip.addFirst(p);
-					stock_p.increaseQuantity(-p.getQuantity());
-				} else {
-					p.setQuantity(stock_p.getQuantity());
-					stock_p.setQuantity(0);
-					itemsToShip.addFirst(p);
+				int quantity = p.getQuantity();
+				if (quantity > stock_p.getQuantity()) {
+					quantity = stock_p.getQuantity();
+					p.setQuantity(quantity);
 				}
-			order.getItems().removeFirst(); 						/* work through the items list this way */				
+				stock_p.setQuantity(stock_p.getQuantity() - quantity);
+				p.setName(stock_p.getName());
+				itemsToShip.addFirst(p);
 			}
+			order.getItems().removeFirst(); // work through the list this way
 		}
+		order.done();
 		// then do something with itemsToShip
 		// for testing print
-		System.out.printf("%s's order:\n", order.getClient().getName());
+		System.out.printf("%s's order, id %d:\n", order.getClient().getName(), order.getUniqueId());
 		System.out.println(itemsToShip);
+	}
+	
+	public Order searchOrder(int orderId) {
+		Order dummy = new Order(null);
+		dummy.setUniqueId(orderId);
+		return (Order)orders.find(dummy);
+	}
+	
+	public Client searchClient(int clientId) {
+		Client dummy = new Client("dummy", "dummy");
+		dummy.setUniqueId(clientId);
+		return (Client)clients.find(dummy);
 	}
 }

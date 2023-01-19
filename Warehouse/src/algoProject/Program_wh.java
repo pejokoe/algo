@@ -3,14 +3,15 @@ package algoProject;
 public class Program_wh {
 	public static void main(String[] args) {
 		Warehouse wh = new Warehouse();
-		Client kev = new Client("Kevin");
-		Product fb = new Product("football", 20, 98765, "somwhere");
-		for (int i = 0; i < 10; i++) {
-			wh.addItem(fb);
-		}
-		Order test = new Order(kev);
-		test.addItem(fb);
-		wh.finalizeOrder(test);
-		System.out.println(wh.search("football"));
+		int clientId = wh.registerClient("Peter", "peterkoegler@gmx.de");
+		int orderId1 = wh.createOrder(clientId);
+		int orderId2 = wh.createOrder(clientId);
+		
+		int productId = wh.addProduct("Football", 10);
+		wh.addToOrder(productId, 5, orderId1);
+		wh.addToOrder(productId, 3, orderId1);
+		wh.addToOrder(productId, 4, orderId2);
+		wh.finalizeOrder(orderId1);
+		wh.finalizeOrder(orderId2);
 	}
 }

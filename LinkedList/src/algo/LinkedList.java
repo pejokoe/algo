@@ -255,7 +255,5 @@ public class LinkedList {
 			d = d.rest();
 		}
 		System.out.printf("The list does not contain %s. \n" , ele.toString());
-	}
-	
-	
+	}	
 }

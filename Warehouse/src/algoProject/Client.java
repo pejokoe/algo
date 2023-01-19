@@ -19,6 +19,10 @@ public class Client implements Comparable{
 	public int getUniqueID() {
 		return uniqueId;
 	}
+	
+	public void setUniqueId(int id) {
+		uniqueId = id;
+	}
 
 	public String getName() {
 		return name;
