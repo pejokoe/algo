@@ -38,7 +38,12 @@ public class Graph
         }
         
         public String toString() {
-        	return info.toString();
+        	String output = "";
+        	output += info.toString() + ": ";
+        	for (int i = 0; i < edges.size(); i++) {
+        		output += edges.get(i).toString();
+        	}
+        	return output;
         }
         
         public void setVisited(boolean v) {
@@ -92,8 +97,9 @@ public class Graph
     
     private Node findNode(Comparable nodeLabel)
     {
-    	return (Node)nodes.get(nodes.find(new Node(nodeLabel)));
-//        return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
+    	return (Node)nodes.find(new Node(nodeLabel));
+//    	return (Node)nodes.get(nodes.find(new Node(nodeLabel)));
+//    	return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
     }
     
     public void addEdge(Comparable nodeLabel1,
@@ -106,16 +112,13 @@ public class Graph
     }
     
     public String toString() {
-    	String output = "";
-    	for (int i = 0; i < nodes.size(); i++) {
-    		Node currentNode = (Node)nodes.get(i);
-    		output += "|" + currentNode.info + "|";
-    		for(int j = 0; j < currentNode.edges.size(); j++) {
-    			output += ((Edge)currentNode.edges.get(j)).toString();
+    	String[] output = {""};
+    	nodes.traverse(new TreeAction() {
+    		public void run(Tree.TreeNode n) {
+    			output[0] += n.toString() + "\n";
     		}
-    		output += "\n";
-    	}
-    	return output;
+    	});
+    	return output[0];
     }
 //    public String toString() {
 //    	String output = "";
@@ -142,7 +145,14 @@ public class Graph
 		while(!toDoList.empty()) {
 			Vector currentPath = (Vector)toDoList.pop();
 			Node currentNode = (Node)currentPath.getLast();
-			if (currentNode == endState) return currentPath;
+			if (currentNode == endState) {
+				//return only vector of node.info 
+				Vector nodeNames = new Vector(5);
+				for (int i = 0; i < currentPath.size(); i++) {
+					nodeNames.addLast(((Node)currentPath.get(i)).info);
+				}
+				return nodeNames;
+			}
 			else {
 				for (int i = 0; i < currentNode.edges.size(); i++) {
 					Edge e = (Edge)currentNode.edges.get(i);

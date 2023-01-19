@@ -9,7 +9,7 @@ public class program_graph {
 		mg.addEdge(1, 3, 9);
 		mg.addEdge(1, 2, 4);
 		mg.addEdge(2, 3, 7);
-		System.out.println(mg);
+//		System.out.println(mg);
 		Graph g = new Graph();
 		g.addNode("A");
 		g.addNode("B");
@@ -25,5 +25,6 @@ public class program_graph {
 		System.out.println(g);
 		System.out.println(g.findPath("A", "C"));
 		System.out.println(g.findPath("A", "D"));
+		System.out.println(g);
 	}
 }
