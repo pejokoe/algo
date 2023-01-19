@@ -46,9 +46,9 @@ public class DictionaryTree {
 		data.insert(toAdd);
 	}
 
-	public DictionaryPair findKey(Comparable key) {
+	public Comparable findKey(Comparable key) {
 		DictionaryPair dummy = new DictionaryPair(key, "dummy");
-		return (DictionaryPair)data.find(dummy);
+		return ((DictionaryPair)data.find(dummy)).getValue();
 	}
 
 //	public void removeKey(Comparable key) {

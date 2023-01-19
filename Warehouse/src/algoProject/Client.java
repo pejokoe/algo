@@ -1,20 +1,32 @@
 package algoProject;
 
-public class Client {
-	private static int generateID = 0;
-	private int unique_ID;
+public class Client implements Comparable{
+	private static int idGenerator = 0;
+	private int uniqueId;
 	private String name;
+	private String email;
 	
-	public Client(String name) {
-		unique_ID = generateID++;
+	public Client(String name, String email) {
+		uniqueId = idGenerator++;
 		this.name = name;
+		this.email = email;
 	}
 
-	public int getUnique_ID() {
-		return unique_ID;
+	public int compareTo(Object o) {
+		return uniqueId - ((Client)o).getUniqueID();
+	}
+
+	public int getUniqueID() {
+		return uniqueId;
 	}
 
 	public String getName() {
 		return name;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	
 }
