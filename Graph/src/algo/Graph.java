@@ -88,6 +88,11 @@ public class Graph
 //        nodes = new Vector(5);
     }
     
+    public Graph(Tree tree) {
+    	nodes = new Tree();
+    	treeToGraph(tree);
+    }
+    
     public void addNode(Comparable label)
     {
     	nodes.insert(new Node(label));
@@ -178,6 +183,30 @@ public class Graph
 				((Node)n.getValue()).visited = false;
 			}
 		});
+	}
+	
+	public void treeToGraph(Tree tree) {
+		Vector nodesToAdd = new Vector(10);
+		tree.traverse(new TreeAction() {
+			public void run(TreeNode n) {
+				nodesToAdd.addLast(n);
+			}
+		});
+		// first pass to add all nodes to nodes
+		for (int i = 0; i < nodesToAdd.size(); i++) {
+			addNode(((TreeNode)nodesToAdd.get(i)).getValue());
+		}
+		// second pass to add edges, only possible after all nodes are there
+		for (int i = 0; i < nodesToAdd.size(); i++) {
+			TreeNode n = (TreeNode)nodesToAdd.get(i);
+			if (n.getLeftTree() != null) {
+				addEdge(n.getValue(), n.getLeftTree().getValue(), 1);
+			}
+			if (n.getRightTree() != null) {
+				addEdge(n.getValue(), n.getRightTree().getValue(), 1);
+			}
+		}
+		
 	}
 	
 //	public void resetVisited() {

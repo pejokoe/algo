@@ -26,5 +26,25 @@ public class program_graph {
 		System.out.println(g.findPath("A", "C"));
 		System.out.println(g.findPath("A", "D"));
 		System.out.println(g);
+		
+		Tree notLinear = new Tree();
+		notLinear.insert(2);
+		notLinear.insert(5);
+		notLinear.insert(3);
+		notLinear.insert(7);
+		notLinear.insert(1);
+		notLinear.insert(15);
+		notLinear.insert(3);
+		notLinear.insert(25);
+		notLinear.insert(16);
+		notLinear.insert(6);
+		notLinear.insert(100);
+		notLinear.insert(4);
+		notLinear.insert(22);
+		notLinear.insert(87);
+		notLinear.insert(50);
+		Graph formerTree = new Graph(notLinear);
+		System.out.println(notLinear);
+		System.out.println(formerTree);
 	}
 }
