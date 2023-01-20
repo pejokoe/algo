@@ -3,13 +3,13 @@ package algoProject;
 import algo.LinkedList;
 
 public class Order implements Comparable{
-	private static int idGenerator = 0;
+	private static int idGeneratorOrder = 0;
 	private int uniqueId;
 	private LinkedList items; 					// LinkedList allows find and remove in O(n)
 	private Client client;
 	
 	public Order(Client client) {
-		this.uniqueId = idGenerator++;
+		this.uniqueId = idGeneratorOrder++;
 		this.client = client;
 		items = new LinkedList();
 	}

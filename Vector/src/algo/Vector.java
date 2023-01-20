@@ -54,7 +54,7 @@ public class Vector implements Comparable{
 
 	public void addLast(Comparable o) {
 		if (count + 1 > data.length) {
-			this.extendCapacity();
+			extendCapacity();
 		}
 		data[count] = o;
 		count++;
@@ -140,7 +140,7 @@ public class Vector implements Comparable{
 	
 	// double size of underlying array if running out of capacity
 	private void extendCapacity() {
-		Comparable[] data2 = new Comparable[count * 2];
+		Comparable[] data2 = new Comparable[data.length * 2];
 		for (int i = 0; i < count; i++) {
 			data2[i] = data[i];
 		}
@@ -173,6 +173,26 @@ public class Vector implements Comparable{
 	}
 	
 	public int compareTo(Object o) {
-		return 0;
+		return size() - ((Vector)o).size();
+	}
+	
+	/**
+	 * @param ele
+	 * @return if found element in Vector that is equal to input ele, else null
+	 */
+	public Comparable binSearch(Comparable ele) {
+		int start = 0;
+		int end = size() - 1;
+		while (start <= end) {
+			int mid = (start + end + 1) / 2;
+			if (ele.compareTo(get(mid)) < 0) {
+				end = mid - 1;
+			} else if (ele.compareTo(get(mid)) > 0) {
+				start = mid + 1;
+			} else {
+				return get(mid);
+			}
+		}
+		return null;
 	}
 }

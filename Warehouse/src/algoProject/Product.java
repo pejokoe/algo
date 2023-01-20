@@ -8,7 +8,7 @@ package algoProject;
  */
 
 public class Product implements Comparable{
-	private static int idGenerator = 0;
+	private static int idGeneratorProduct = 0;
 	private int uniqueBarcodeId;
 	private String name;
 	private float price;
@@ -32,7 +32,7 @@ public class Product implements Comparable{
 	 * @param quantity
 	 */
 	public Product(String name, int quantity) {
-		this.uniqueBarcodeId = idGenerator++;
+		this.uniqueBarcodeId = idGeneratorProduct++;
 		this.name = name;
 		this.quantity = quantity;
 	}
@@ -76,6 +76,10 @@ public class Product implements Comparable{
 
 	public String getLocation() {
 		return location;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public int getQuantity() {

@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="/LinkedList"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/DictionaryTree"/>
+	<classpathentry kind="src" path="/Graph"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

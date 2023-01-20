@@ -1,39 +1,38 @@
 package algoProject;
 
 import algo.DictionaryTree;
+import algo.Graph;
 import algo.LinkedList;
 import algo.Tree;
 import algo.Vector;
 
+
 public class Warehouse {
-	// due to the nature ids are generated, all structures will always be sorted automatically
-	private Tree stock; 											/* structure underlying tree not yet decided, 
-																	   tree will be sorted by unique barcode id of 
-																	   products */
-	private DictionaryTree productDictionary;						/* use a dictionary to associate product IDs with product names,
-																	   because finding products has to be possible based on both
-																	   This way, name based lookup will be 2 * log(n) instead of n * log(n) */
-	private Tree location;										/* this vector will serve as the base for a 
-																	   vector + linkedList representation of the 
-																	   graph for locations */
-	private Tree clients;
-	private Tree orders;
+	/**
+	 * Due to the nature the ids are generated in this piece of software, all structures will be sorted automatically.
+	 * This can be exploited using vectors' binary search to achieve O(log(n)) for all find operations.
+	 * To achieve O(log(n)) also for product name search, a dictionary tree is maintained resolving names to products' uniqueBarcodeIds.
+	 * No special measures are taken however to ensure this dictionary tree is balanced.
+	 */
+	private Vector stock; 											
+	private DictionaryTree productDictionary;			
+	private Graph location;										
+	private Vector clients;
+	private Vector orders;
 	
 	public Warehouse() {
-		stock = new Tree();
+		stock = new Vector(50);
 		productDictionary = new DictionaryTree();
-		location = new Tree();
-		clients = new Tree();
-		orders = new Tree();
+		location = new Graph();
+		clients = new Vector(50);
+		orders = new Vector(50);
 	}
 	
 	public int searchName(String name) {
 		
 		/* find product id based on name (log(n)) */
 		int id = (int)productDictionary.findKey(name);
-		/* create dummy product with right id */
-		Product dummy = new Product(name, 0, id);
-		Product product = (Product)stock.find(dummy);
+		Product product = searchProductId(id);
 		if (product != null) {
 			return product.getQuantity();
 		} else {
@@ -43,7 +42,7 @@ public class Warehouse {
 	
 	public Product searchId(int id) {
 		Product dummy = new Product("dummy", 0, id);
-		Product product = (Product)stock.find(dummy);
+		Product product = (Product)stock.binSearch(dummy);
 		if (product != null) {
 			return product;
 		} else {
@@ -53,7 +52,7 @@ public class Warehouse {
 	
 	public int addProduct(String name, int quantity) {
 		Product p = new Product(name, quantity);
-		stock.insert(p);
+		stock.addLast(p);
 		productDictionary.add(name, p.getUniqueBarcodeId());
 		return p.getUniqueBarcodeId();
 	}
@@ -74,30 +73,31 @@ public class Warehouse {
 	
 	public int registerClient(String name, String email) {
 		Client client = new Client(name, email);
-		clients.insert(client);
+		clients.addLast(client);
 		return client.getUniqueID();
 	}
 	
 	public int createOrder(int clientId) {
-		Client client = searchClient(clientId);
+		Client client = searchClientId(clientId);
 		Order order = new Order(client);
-		orders.insert(order);
+		orders.addLast(order);
 		return order.getUniqueId();
 	}
 	
 	public void addToOrder(int productId, int quantity, int orderId) {
 		Order dummy = new Order(null);
 		dummy.setUniqueId(orderId);
-		Order addTo = (Order)orders.find(dummy);
+		Order addTo = (Order)orders.binSearch(dummy);
 		addTo.addItem(new Product("placeholder", quantity, productId));
 	}
 	
 	public void finalizeOrder(int orderId) {
-		Order order = searchOrder(orderId);
+		Order order = searchOrderId(orderId);
 		LinkedList itemsToShip = new LinkedList();
-		for (int i = 0; i < order.getItems().size(); i++) {
+		int size = order.getItems().size();
+		for (int i = 0; i < size; i++) {
 			Product p = (Product)order.getItems().getFirst();
-			Product stock_p = (Product) stock.find(p);
+			Product stock_p = (Product) stock.binSearch(p);
 			if (stock_p != null) {
 				int quantity = p.getQuantity();
 				if (quantity > stock_p.getQuantity()) {
@@ -117,15 +117,41 @@ public class Warehouse {
 		System.out.println(itemsToShip);
 	}
 	
-	public Order searchOrder(int orderId) {
-		Order dummy = new Order(null);
-		dummy.setUniqueId(orderId);
-		return (Order)orders.find(dummy);
+	public Product searchProductId(int productId) {
+		Product dummy = new Product("dummy", 0, productId);
+		return (Product)stock.binSearch(dummy);
 	}
 	
-	public Client searchClient(int clientId) {
+	public Order searchOrderId(int orderId) {
+		Order dummy = new Order(null);
+		dummy.setUniqueId(orderId);
+		return (Order)orders.binSearch(dummy);
+	}
+	
+	public Client searchClientId(int clientId) {
 		Client dummy = new Client("dummy", "dummy");
 		dummy.setUniqueId(clientId);
-		return (Client)clients.find(dummy);
+		return (Client)clients.binSearch(dummy);
+	}
+	
+	public void searchProduct(String productName) {
+		int id = (int)productDictionary.findKey(productName);
+		Product product = searchProductId(id);
+		System.out.printf("Product name: %s\nQuantity: %d\n", product.getName(), product.getQuantity());
+	}
+	
+	/**
+	 * assigns location to a product, also adding the location to the local warehouse tree to organize a graph
+	 * @param locationName
+	 * @param productId
+	 */
+	public void assignLocation(String locationName, int productId) {
+		Product product = searchProductId(productId);
+		product.setLocation(locationName);
+		location.addNode(locationName);
+	}
+	
+	public void connectLocations(String firstLocation, String secondLocation, int distance) {
+		location.addEdge(firstLocation, secondLocation, distance);
 	}
 }

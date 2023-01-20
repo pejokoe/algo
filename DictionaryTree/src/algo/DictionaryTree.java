@@ -27,8 +27,7 @@ public class DictionaryTree {
 		}
 
 		public int compareTo(Object o) {
-			DictionaryPair tmp = (DictionaryPair)o;
-			return this.key.compareTo(tmp.key);
+			return key.compareTo(((DictionaryPair)o).getKey());
 		}
 		public String toString() {
 			return "Key: " + this.key.toString() + "\nValue: " + this.value.toString();
