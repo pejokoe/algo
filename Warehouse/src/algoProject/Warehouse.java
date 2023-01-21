@@ -28,6 +28,10 @@ public class Warehouse {
 		orders = new Vector(50);
 	}
 	
+	public Graph getLocation() {
+		return location;
+	}
+	
 	public int searchName(String name) {
 		
 		/* find product id based on name (log(n)) */
@@ -157,7 +161,12 @@ public class Warehouse {
 	
 	public void printShortestPath(String firstLocation, String secondLocation) {
 		LinkedList shortestPath = location.findShortestPath(firstLocation, secondLocation);
-		System.out.printf("Shortest path from %s to %s:\n", firstLocation, secondLocation);
-		System.out.println(shortestPath);
+		if (shortestPath == null) {
+			System.out.printf("There appears to be no path from %s to %s.\n", firstLocation, secondLocation);
+		} else {
+			System.out.printf("Shortest path from %s to %s:\n", firstLocation, secondLocation);
+			System.out.println(shortestPath);
+			System.out.printf("Total Distance: %.2f\n", location.getCurrentDistance(secondLocation));
+		}
 	}
 }

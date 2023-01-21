@@ -76,7 +76,7 @@ public class Graph
         }
         
         public String toString() {
-        	return " --> " + toNode.info + "(" + String.format("%f", weight) + ")";
+        	return " --> " + toNode.info + "(" + String.format("%.2f", weight) + ")";
         }
     }
     private Vector nodes;
@@ -94,6 +94,10 @@ public class Graph
 //    	nodes = new Tree();
     	nodes = new Vector(5);
     	treeToGraph(tree);
+    }
+    
+    public double getCurrentDistance(Comparable label) {
+    	return findNode(label).distance;
     }
     
     public void addNode(Comparable label)
@@ -221,9 +225,9 @@ public class Graph
 //		source.path = null;
 		for (int i = 0; i < nodes.size(); i++) {
 			((Node)nodes.get(i)).distance = Double.POSITIVE_INFINITY;
+			((Node)nodes.get(i)).path = null;
 		}
 		source.distance = 0;
-		source.path = null;
 	}
 	
 	public void relax(Node u, Node v, double w) {
@@ -256,14 +260,18 @@ public class Graph
 			}
 		}
 		LinkedList path = new LinkedList();
+		path.addFirst(String.format("(%.2f)", dest.distance));
 		path.addFirst(dest.info);
 		Node prev = dest.path;
 		while( prev != null ) {
-			path.addFirst(prev.info);
+			path.addFirst(prev.info + String.format("(%.2f)", prev.distance) + " --> ");
 			prev = prev.path;
 		}
-		path.addFirst(start.info);
-		return path;
+		if (path.getFirst().equals(start.info + String.format("(%.2f)", start.distance) + " --> ")) {
+			return path;
+		} else {
+			return null;
+		}
 	}
 	
 	public void resetVisited() {
