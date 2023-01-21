@@ -154,4 +154,10 @@ public class Warehouse {
 	public void connectLocations(String firstLocation, String secondLocation, int distance) {
 		location.addEdge(firstLocation, secondLocation, distance);
 	}
+	
+	public void printShortestPath(String firstLocation, String secondLocation) {
+		LinkedList shortestPath = location.findShortestPath(firstLocation, secondLocation);
+		System.out.printf("Shortest path from %s to %s:\n", firstLocation, secondLocation);
+		System.out.println(shortestPath);
+	}
 }

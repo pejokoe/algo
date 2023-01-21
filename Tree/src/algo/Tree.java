@@ -56,9 +56,11 @@ public class Tree {
 
 	// the root of our tree
 	protected TreeNode root;
+	private int size;
 
 	public Tree() {
 		root = null;
+		size = 0;
 	}
 
 	public void traverse(TreeAction action) {
@@ -99,6 +101,7 @@ public class Tree {
 	private void insertAtNode(Comparable element, TreeNode current, TreeNode parent) {
 		// if the node we check is empty
 		if (current == null) {
+			size += 1;
 			TreeNode newNode = new TreeNode(element);
 			// the current node is empty, but we have a parent
 			if (parent != null) {
@@ -196,6 +199,7 @@ public class Tree {
 			} else {
 				parent.leftNode = n.rightNode;
 			}
+			size -= 1;
 			return n.value;
 		}
 	}
@@ -275,5 +279,9 @@ public class Tree {
 		} else {
 			return n.value;
 		}
+	}
+	
+	public int size() {
+		return size;
 	}
 }

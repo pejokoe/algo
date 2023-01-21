@@ -10,6 +10,8 @@ public class Graph
         private LinkedList edges;
 //        private Vector edges;
         private boolean visited;
+        public double distance;
+        private Node path;
         
         public Node(Comparable label)
         {
@@ -55,9 +57,9 @@ public class Graph
     private class Edge implements Comparable
     {
         private Node toNode;
-        private Comparable weight;
+        private double weight;
         
-        public Edge(Node to, Comparable weight)
+        public Edge(Node to, double weight)
         {
             toNode = to;
             this.weight = weight;
@@ -74,69 +76,70 @@ public class Graph
         }
         
         public String toString() {
-        	return " --> " + toNode.info + "(" + weight.toString() + ")";
+        	return " --> " + toNode.info + "(" + String.format("%f", weight) + ")";
         }
     }
-    private Tree nodes;
+    private Vector nodes;
 //    private LinkedList nodes;
 //    private Vector nodes;
     
     public Graph()
     {
-    	nodes = new Tree();
+//    	nodes = new Tree();
 //    	nodes = new LinkedList();
-//        nodes = new Vector(5);
+        nodes = new Vector(5);
     }
     
     public Graph(Tree tree) {
-    	nodes = new Tree();
+//    	nodes = new Tree();
+    	nodes = new Vector(5);
     	treeToGraph(tree);
     }
     
     public void addNode(Comparable label)
     {
-    	nodes.insert(new Node(label));
+//    	nodes.insert(new Node(label));
 //        nodes.addFirst(new Node(label));
-//    	nodes.addLast(new Node(label));
+    	nodes.addLast(new Node(label));
     }
     
     private Node findNode(Comparable nodeLabel)
     {
-    	return (Node)nodes.find(new Node(nodeLabel));
+//    	return (Node)nodes.find(new Node(nodeLabel));
 //    	return (Node)nodes.get(nodes.find(new Node(nodeLabel)));
-//    	return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
+    	return (Node)nodes.get(nodes.search(new Node(nodeLabel)));
     }
     
     public void addEdge(Comparable nodeLabel1,
                         Comparable nodeLabel2,
-                        Comparable weight)
+                        int weight)
     {
         Node n1 = findNode(nodeLabel1);
         Node n2 = findNode(nodeLabel2);
         n1.addEdge(new Edge(n2, weight));
     }
     
-    public String toString() {
-    	String[] output = {""};
-    	nodes.traverse(new TreeAction() {
-    		public void run(Tree.TreeNode n) {
-    			output[0] += n.toString() + "\n";
-    		}
-    	});
-    	return output[0];
-    }
 //    public String toString() {
-//    	String output = "";
-//    	for (int i = 0; i < nodes.size(); i++) {
-//    		Node currentNode = (Node)nodes.get(i);
-//    		output += "|" + currentNode.info + "|";
-//    		for(int j = 0; j < currentNode.edges.size(); j++) {
-//    			output += ((Edge)currentNode.edges.get(j)).toString();
+//    	String[] output = {""};
+//    	nodes.traverse(new TreeAction() {
+//    		public void run(Tree.TreeNode n) {
+//    			output[0] += n.toString() + "\n";
 //    		}
-//    		output += "\n";
-//    	}
-//    	return output;
+//    	});
+//    	return output[0];
 //    }
+    public String toString() {
+    	String output = "";
+    	for (int i = 0; i < nodes.size(); i++) {
+    		Node currentNode = (Node)nodes.get(i);
+    		output += "|" + currentNode.info + "|";
+    		for(int j = 0; j < currentNode.edges.size(); j++) {
+    			output += ((Edge)currentNode.edges.get(j)).toString();
+    		}
+    		output += "\n";
+    	}
+    	return output;
+    }
     
 	
 	public Vector findPath(Comparable from, Comparable to) {
@@ -177,13 +180,13 @@ public class Graph
 		return null;
 	}
 	
-	public void resetVisited() {
-		nodes.traverse(new TreeAction() {
-			public void run(TreeNode n) {
-				((Node)n.getValue()).visited = false;
-			}
-		});
-	}
+//	public void resetVisited() {
+//		nodes.traverse(new TreeAction() {
+//			public void run(TreeNode n) {
+//				((Node)n.getValue()).visited = false;
+//			}
+//		});
+//	}
 	
 	public void treeToGraph(Tree tree) {
 		Vector nodesToAdd = new Vector(10);
@@ -206,12 +209,66 @@ public class Graph
 				addEdge(n.getValue(), n.getRightTree().getValue(), 1);
 			}
 		}
-		
 	}
 	
-//	public void resetVisited() {
-//		for (int i = 0; i < nodes.size(); i++) {
-//			((Node)nodes.get(i)).visited = false;
-//		}
-//	}
+	public void initializeSource(Node source) {
+//		nodes.traverse(new TreeAction() {
+//			public void run(TreeNode n) {
+//				((Node)n.getValue()).distance = Double.POSITIVE_INFINITY;
+//			}
+//		});
+//		source.distance = 0;
+//		source.path = null;
+		for (int i = 0; i < nodes.size(); i++) {
+			((Node)nodes.get(i)).distance = Double.POSITIVE_INFINITY;
+		}
+		source.distance = 0;
+		source.path = null;
+	}
+	
+	public void relax(Node u, Node v, double w) {
+		if (v.distance > (u.distance + w)) {
+			v.distance = u.distance + w;
+			v.path = u;
+		}
+	}
+	
+	public LinkedList findShortestPath(Comparable from, Comparable to) {
+		Node start = findNode(from);
+		Node dest = findNode(to);
+		// setting up Bellman-Ford Algorithm
+		initializeSource(start);
+		for (int i = 1; i < nodes.size() - 1; i++) { // |G.V| times
+			for (int j = 0; j < nodes.size(); j++) { // all nodes in order to relax all edges
+				Node current = (Node)nodes.get(j);
+				for(int k = 0; k < current.edges.size(); k++) {
+					relax(current, ((Edge)current.edges.get(k)).toNode, ((Edge)current.edges.get(k)).weight);
+				}
+			}
+		}
+		// guarantee no cycles
+		for (int j = 0; j < nodes.size(); j++) { // all nodes in order to relax all edges
+			Node current = (Node)nodes.get(j);
+			for(int k = 0; k < current.edges.size(); k++) {
+				if (((Edge)current.edges.get(k)).toNode.distance > (current.distance + ((Edge)current.edges.get(k)).weight)) {
+					return null;
+				}
+			}
+		}
+		LinkedList path = new LinkedList();
+		path.addFirst(dest.info);
+		Node prev = dest.path;
+		while( prev != null ) {
+			path.addFirst(prev.info);
+			prev = prev.path;
+		}
+		path.addFirst(start.info);
+		return path;
+	}
+	
+	public void resetVisited() {
+		for (int i = 0; i < nodes.size(); i++) {
+			((Node)nodes.get(i)).visited = false;
+		}
+	}
 }
