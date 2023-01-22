@@ -83,6 +83,10 @@ public class Warehouse {
 		Product p = searchId(productId);
 		if (p == null) {
 			return false;
+		}
+		if (quantity > p.getQuantity()) {
+			p.setQuantity(0);
+			return false;
 		} else {
 			p.setQuantity(p.getQuantity() - quantity);
 			return true;
@@ -134,6 +138,7 @@ public class Warehouse {
 	public void finalizeOrder(int orderId) {
 		Order order = searchOrderId(orderId);
 		LinkedList itemsToShip = new LinkedList();
+		float price = 0;
 		int size = order.getItems().size();
 		for (int i = 0; i < size; i++) {
 			Product p = (Product)order.getItems().getFirst();
@@ -147,6 +152,7 @@ public class Warehouse {
 				stock_p.setQuantity(stock_p.getQuantity() - quantity);
 				p.setName(stock_p.getName());
 				itemsToShip.addFirst(p);
+				price += stock_p.getPrice() * quantity;
 			}
 			order.getItems().removeFirst(); // work through the list this way
 		}
@@ -155,6 +161,7 @@ public class Warehouse {
 		// for testing print
 		System.out.printf("%s's order, id %d:\n", order.getClient().getName(), order.getUniqueId());
 		System.out.println(itemsToShip);
+		System.out.printf("Total price: %.2f\n\n", price);
 	}
 	
 	
@@ -233,7 +240,7 @@ public class Warehouse {
 		if (shortestPath == null) {
 			System.out.printf("There appears to be no path from %s to %s.\n", firstLocation, secondLocation);
 		} else {
-			System.out.printf("Shortest path from %s to %s:\n", firstLocation, secondLocation);
+			System.out.printf("Shortest path from '%s' to '%s':\n", firstLocation, secondLocation);
 			System.out.println(shortestPath);
 			System.out.printf("Total Distance: %.2f\n", location.getCurrentDistance(secondLocation));
 		}

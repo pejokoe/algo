@@ -52,7 +52,7 @@ public class Program_wh {
 		wh.connectLocations("seven", "eight", 5);
 		wh.connectLocations("seven", "six", 1);
 		System.out.println(wh.getLocation());
-		wh.printShortestPath("zero","two");
+		wh.printShortestPath("zero","eight");
 //		int clientId = wh.registerClient("Peter", "peterkoegler@gmx.de");
 //		int orderId1 = wh.createOrder(clientId);
 //		int orderId2 = wh.createOrder(clientId);
