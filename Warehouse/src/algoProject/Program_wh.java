@@ -1,4 +1,5 @@
-package algoProject;
+package programs;
+import datastructures.*;
 
 public class Program_wh {
 	public static void main(String[] args) {

@@ -144,6 +144,12 @@ public class Graph
     }
     
 	
+	/**
+	 * finds a path from given start to given destination
+	 * @param from
+	 * @param to
+	 * @return Vector of nodes along a possible path from given start to destination
+	 */
 	public Vector findPath(Comparable from, Comparable to) {
 		resetVisited();
 		Node startState = findNode(from);
@@ -190,7 +196,12 @@ public class Graph
 //		});
 //	}
 	
-	public void treeToGraph(Tree tree) {
+	/**
+	 * Transforms a given tree into a graph.
+	 * Can only be called through this class' constructor by passing a tree upon creating the new Graph instance
+	 * @param tree
+	 */
+	private void treeToGraph(Tree tree) {
 		Vector nodesToAdd = new Vector(10);
 		tree.traverse(new TreeAction() {
 			public void run(Tree.TreeNode n) {
@@ -213,6 +224,10 @@ public class Graph
 		}
 	}
 	
+	/**
+	 * Helper function initializing findShortestPath
+	 * @param source
+	 */
 	public void initializeSource(Node source) {
 //		nodes.traverse(new TreeAction() {
 //			public void run(TreeNode n) {
@@ -228,6 +243,12 @@ public class Graph
 		source.distance = 0;
 	}
 	
+	/**
+	 * Helper function for findShortestPath
+	 * @param u
+	 * @param v
+	 * @param w
+	 */
 	public void relax(Node u, Node v, double w) {
 		if (v.distance > (u.distance + w)) {
 			v.distance = u.distance + w;
@@ -235,6 +256,14 @@ public class Graph
 		}
 	}
 	
+	
+	/**
+	 * Finds the shortest path from given start to destination node through Bellman-Ford-Algorithm.
+	 * Returns a nicely formatted linkedList ready for print out.
+	 * @param from
+	 * @param to
+	 * @return LinkedList of nodes on path if path exists, else null
+	 */
 	public LinkedList findShortestPath(Comparable from, Comparable to) {
 		Node start = findNode(from);
 		Node dest = findNode(to);

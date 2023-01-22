@@ -61,6 +61,10 @@ public class Tree {
 		size = 0;
 	}
 
+	/**
+	 * traverses the entire tree and performs a passed action with every node
+	 * @param action
+	 */
 	public void traverse(TreeAction action) {
 		Queue t = new Queue();
 		//Stack t = new Stack();
@@ -89,6 +93,11 @@ public class Tree {
 		traverseNode(root, action);
 	}
 
+	
+	/**
+	 * insert a given element into the tree
+	 * @param element
+	 */
 	public void insert(Comparable element) {
 		insertAtNode(element, root, null);
 	}
@@ -144,6 +153,12 @@ public class Tree {
 		 return depthAtNode(root, 1);
 	}
 	
+	/**
+	 * finds the depth of given node in the tree
+	 * @param n
+	 * @param depth
+	 * @return depth of node
+	 */
 	public int depthAtNode(TreeNode n, int depth) {
 		int depth_left = 0;
 		int depth_right = 0;
@@ -174,6 +189,9 @@ public class Tree {
 		}
 	}
 	
+	/**
+	 * at each node swaps its leftTree and rightTree 
+	 */
 	public void swapTree() {
 		traverse(new TreeAction() {
 			public void run(TreeNode n) {
@@ -202,15 +220,25 @@ public class Tree {
 		}
 	}
 	
-	public Comparable median() {
-		return root.value;
-	}
+//	public Comparable median() {
+//		return root.value;
+//	}
 	
+	
+	/** 
+	 * finds smallest element in the tree
+	 * @return smallest element
+	 */
 	public Comparable smallest() {
 		return smallestAtNode(root);
 	}
 	
-	public Comparable smallestAtNode(TreeNode n) {
+	/** 
+	 * helper function for finding the tree's smallest element
+	 * @param n
+	 * @return
+	 */
+	private Comparable smallestAtNode(TreeNode n) {
 		if (n.leftNode != null) {
 			return smallestAtNode(n.leftNode);
 		} else {
@@ -218,7 +246,11 @@ public class Tree {
 		}
 	}
 	
-	// only for integer values
+	
+	/**
+	 * calculate average of all elements in the tree
+	 * @return average of all elements in the tree
+	 */
 	public float average() {
 		int[] s = {0};
 		float[] num = {0};

@@ -1,7 +1,6 @@
 package programs;
 import datastructures.*;
 
-
 public class Program_DicTree {
 	public static void main (String[] args) {
 		DictionaryTree dt = new DictionaryTree();
