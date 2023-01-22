@@ -9,7 +9,8 @@ import algo.Vector;
 
 public class Warehouse {
 	/**
-	 * Due to the nature the ids are generated in this piece of software, all structures will be sorted automatically.
+	 * This is the project's main class, organizing the interaction between orders, clients and products.
+	 * Due to the nature all ids are generated in this piece of software, all structures will be sorted automatically.
 	 * This can be exploited using vectors' binary search to achieve O(log(n)) for all find operations.
 	 * To achieve O(log(n)) also for product name search, a dictionary tree is maintained resolving names to products' uniqueBarcodeIds.
 	 * No special measures are taken however to ensure this dictionary tree is balanced.
@@ -20,6 +21,9 @@ public class Warehouse {
 	private Vector clients;
 	private Vector orders;
 	
+	/**
+	 * Warehouse constructor
+	 */
 	public Warehouse() {
 		stock = new Vector(50);
 		productDictionary = new DictionaryTree();
@@ -32,6 +36,12 @@ public class Warehouse {
 		return location;
 	}
 	
+	
+	/**
+	 * search a product based on its name and return the quantity, performed in O(2log(n))
+	 * @param name
+	 * @return product quantity, if product not found return -1
+	 */
 	public int searchName(String name) {
 		
 		/* find product id based on name (log(n)) */
@@ -44,9 +54,12 @@ public class Warehouse {
 		}
 	}
 	
+	/**
+	 * @param id
+	 * @return Product instance product that was found, null if according product was not found
+	 */
 	public Product searchId(int id) {
-		Product dummy = new Product("dummy", 0, id);
-		Product product = (Product)stock.binSearch(dummy);
+		Product product = searchProductId(id);
 		if (product != null) {
 			return product;
 		} else {
@@ -54,6 +67,12 @@ public class Warehouse {
 		}
 	}
 	
+	/**
+	 * create a product with a given name and a given quantity, add the product to warehouse's stock structure
+	 * @param name
+	 * @param quantity
+	 * @return newly created and added product's new barcode id
+	 */
 	public int addProduct(String name, int quantity) {
 		Product p = new Product(name, quantity);
 		stock.addLast(p);
@@ -61,13 +80,15 @@ public class Warehouse {
 		return p.getUniqueBarcodeId();
 	}
 	
+	/**
+	 * removes given quantity of product, if found in stock, from stock
+	 * @param productId
+	 * @param quantity
+	 * @return boolean indicating success or failure
+	 */
 	public boolean removeProduct(int productId, int quantity) {
 		Product p = searchId(productId);
 		if (p == null) {
-			return false;
-		}
-		if (quantity > p.getQuantity()) {
-			p.setQuantity(0);
 			return false;
 		} else {
 			p.setQuantity(p.getQuantity() - quantity);
@@ -75,12 +96,24 @@ public class Warehouse {
 		}
 	}
 	
+	
+	/**
+	 * create a new Client instance with given name and email and add it to warehouse's client structure
+	 * @param name
+	 * @param email
+	 * @return newly created and added client's id
+	 */
 	public int registerClient(String name, String email) {
 		Client client = new Client(name, email);
 		clients.addLast(client);
 		return client.getUniqueID();
 	}
 	
+	/** 
+	 * create a new Order instance with client associated to given client id and add it to warehouse's order structure
+	 * @param clientId
+	 * @return newly created and added order's id
+	 */
 	public int createOrder(int clientId) {
 		Client client = searchClientId(clientId);
 		Order order = new Order(client);
@@ -88,13 +121,23 @@ public class Warehouse {
 		return order.getUniqueId();
 	}
 	
+	/**
+	 * add a given product with a given quantity to a given order
+	 * @param productId
+	 * @param quantity
+	 * @param orderId
+	 */
 	public void addToOrder(int productId, int quantity, int orderId) {
-		Order dummy = new Order(null);
-		dummy.setUniqueId(orderId);
-		Order addTo = (Order)orders.binSearch(dummy);
+		Order addTo = searchOrderId(orderId);
 		addTo.addItem(new Product("placeholder", quantity, productId));
 	}
 	
+	/**
+	 * Finalize given order by removing all items from order item list and subsequently deleting the structure.
+	 * Add every item to 'itemsToShip' list, in the process removing the requested quantity of the item from stock.
+	 * Print out an overview of the order.
+	 * @param orderId
+	 */
 	public void finalizeOrder(int orderId) {
 		Order order = searchOrderId(orderId);
 		LinkedList itemsToShip = new LinkedList();
@@ -121,23 +164,43 @@ public class Warehouse {
 		System.out.println(itemsToShip);
 	}
 	
+	
+	/**
+	 * helper function to find product in the product structure in O(log(n))
+	 * @param productId
+	 * @return product associated to given productId
+	 */
 	public Product searchProductId(int productId) {
 		Product dummy = new Product("dummy", 0, productId);
 		return (Product)stock.binSearch(dummy);
 	}
 	
+	/**
+	 * helper function to find order in the order structure in O(log(n))
+	 * @param orderId
+	 * @return order associated to given orderId
+	 */
 	public Order searchOrderId(int orderId) {
 		Order dummy = new Order(null);
 		dummy.setUniqueId(orderId);
 		return (Order)orders.binSearch(dummy);
 	}
 	
+	/**
+	 * helper function to find client in the client structure in O(log(n))
+	 * @param clientId
+	 * @return client associated to given clientId
+	 */
 	public Client searchClientId(int clientId) {
 		Client dummy = new Client("dummy", "dummy");
 		dummy.setUniqueId(clientId);
 		return (Client)clients.binSearch(dummy);
 	}
 	
+	/**
+	 * search a product based on its name and print out name + quantity
+	 * @param productName
+	 */
 	public void searchProduct(String productName) {
 		int id = (int)productDictionary.findKey(productName);
 		Product product = searchProductId(id);
@@ -145,7 +208,7 @@ public class Warehouse {
 	}
 	
 	/**
-	 * assigns location to a product, also adding the location to the local warehouse tree to organize a graph
+	 * assigns location to a product, also adding the location to the warehouse's locations graph
 	 * @param locationName
 	 * @param productId
 	 */
@@ -155,10 +218,23 @@ public class Warehouse {
 		location.addNode(locationName);
 	}
 	
+	
+	/**
+	 * connecting two locations in the locations graph via a given distance
+	 * @param firstLocation
+	 * @param secondLocation
+	 * @param distance
+	 */
 	public void connectLocations(String firstLocation, String secondLocation, int distance) {
 		location.addEdge(firstLocation, secondLocation, distance);
 	}
 	
+	
+	/**
+	 * find and print out the shortest path from one location to another location
+	 * @param firstLocation
+	 * @param secondLocation
+	 */
 	public void printShortestPath(String firstLocation, String secondLocation) {
 		LinkedList shortestPath = location.findShortestPath(firstLocation, secondLocation);
 		if (shortestPath == null) {

@@ -18,9 +18,11 @@ public class Order implements Comparable{
 		return uniqueId - ((Order)o).getUniqueId();
 	}
 	
-	// addItem and removeItem: either add a new instance for every item or increase quantity if same 
-	// item is added twice or more
-
+	/**
+	 * add item to an order
+	 * if item with same id is already in the order, the quantity is increased rather than adding the item again
+	 * @param item
+	 */
 	public void addItem(Product item) {
 		int position = items.search(item);
 		if (position == -1) {
@@ -31,6 +33,11 @@ public class Order implements Comparable{
 		}
 	}
 	
+	
+	/**
+	 * remove given item from the item list
+	 * @param item
+	 */
 	public void removeItem(Product item) {
 		items.remove(item);
 	}
@@ -51,10 +58,18 @@ public class Order implements Comparable{
 		return client;
 	}
 	
+	
+	/**
+	 * output order id, order's client and all products
+	 */
 	public String toString() {
-		return items.toString();
+		String ret = String.format("Order %d, Client %s: \n", uniqueId, client.getName()) + items.toString();
+		return ret;
 	}
 	
+	/**
+	 * pass items list to garbage collector, this way no products can be added/removed anymore
+	 */
 	public void done() {
 		items = null;
 	}

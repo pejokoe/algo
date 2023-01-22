@@ -45,6 +45,7 @@ public class Product implements Comparable{
 
 	/**
 	 *	products are compared based on their unique barcode ID
+	 *	@param o
 	 */
 	public int compareTo(Object o) {
 		return uniqueBarcodeId - ((Product)o).getUniqueBarcodeId();
