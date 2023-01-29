@@ -16,9 +16,9 @@ public class program_graph {
 		g.addNode("B");
 		g.addNode("C");
 		g.addNode("D");
-		g.addEdge("A", "B", 6);
-		g.addEdge("A", "C", 5);
-		g.addEdge("B", "A", 3);
+//		g.addEdge("A", "B", 6);
+		g.addEdge("A", "D", 5);
+		g.addEdge("A", "B", 3);
 		g.addEdge("B", "C", 4);
 		g.addEdge("B", "D", 9);
 		g.addEdge("C",  "D", 7);
@@ -27,6 +27,7 @@ public class program_graph {
 		System.out.println(g.findPath("A", "C"));
 		System.out.println(g.findPath("A", "D"));
 		System.out.println(g);
+		g.hasCycle();
 		
 //		Tree notLinear = new Tree();
 //		notLinear.insert(2);

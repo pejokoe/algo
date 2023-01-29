@@ -306,4 +306,32 @@ public class Graph
 			((Node)nodes.get(i)).visited = false;
 		}
 	}
+	
+	public void hasCycle() {
+		for (int i = 0; i < nodes.size(); i++) {
+			Node current = (Node)nodes.get(i);
+			current.visited = false;
+		}
+		Vector cycle = new Vector(20);
+		for (int i = 0; i < nodes.size(); i++) {
+			if (hasCycle((Node) nodes.get(i), cycle) != null) {
+				System.out.println(cycle);
+			}
+		}
+	}
+	
+	private Vector hasCycle(Node current, Vector cycle) {
+		current.visited = true;
+		cycle.addLast(current);
+		for (int j = 0; j < current.edges.size(); j++) {
+			Edge edge = (Edge)current.edges.get(j);
+			if (cycle.contains(edge.toNode)) {
+				cycle.addLast(edge.toNode);
+				return cycle;
+			}
+			if (!edge.toNode.visited) hasCycle(edge.toNode, cycle);
+		}
+		cycle.removeLast();
+		return null;
+	}
 }
